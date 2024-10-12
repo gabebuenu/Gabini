@@ -182,19 +182,10 @@ html, body {
   text-align: center;
 }
 
-/* Ajustes para o título em diferentes tamanhos de tela */
-@media (min-width: 1200px) {
-  .cadastro-title {
-    font-size: 8vw;
-  }
-}
-@media (max-width: 768px) {
-  .cadastro-title {
-    font-size: 12vw;
-  }
-}
 @media (max-width: 480px) {
   .cadastro-title {
+    font-family: 'Futo Sans', sans-serif;
+    font-weight: 900;
     font-size: 14vw;
   }
 }
@@ -211,7 +202,7 @@ html, body {
 
 @media (max-width: 480px) {
   .progress-bar {
-    margin-bottom: 380px;
+    margin-bottom: 400px;
   }
 }
 
