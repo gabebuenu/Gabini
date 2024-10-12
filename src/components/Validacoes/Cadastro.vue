@@ -196,13 +196,13 @@ html, body {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin-bottom: 300px;
+  margin-bottom: 250px;
   width: 100%; 
 }
 
 @media (max-width: 480px) {
   .progress-bar {
-    margin-bottom: 400px;
+    margin-bottom: 380px;
   }
 }
 
@@ -264,7 +264,7 @@ html, body {
   display: grid;
   grid-template-columns: 1fr 1fr; 
   gap: 25px; 
-  margin-bottom: 80px;
+  margin-bottom: 40px;
 }
 
 input {
