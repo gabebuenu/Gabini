@@ -1,6 +1,6 @@
 <template>
     <!-- <GabiniLogo /> -->
-    <!-- <Cadastro /> -->
+    <Cadastro />
     <Bruno />
     <Guilherme />
     <GabrielBueno />
@@ -19,7 +19,7 @@
  import Gustavo from '../components/Home/Gustavo.vue'
  import LucasLima from '../components/Home/LucasLima.vue'
  import FooterBruno from '../components/Home/FooterBruno.vue'
-//  import Cadastro from '@/components/Validacoes/Cadastro.vue'
+ import Cadastro from '@/components/Validacoes/Cadastro.vue'
 //  import GabiniLogo from '@/components/Animacoes/GabiniLogo.vue'
  
  export default {
@@ -30,8 +30,8 @@
      Panizio,
      Gustavo,
      LucasLima,
-     FooterBruno
-    //  Cadastro
+     FooterBruno,
+     Cadastro
     //  GabiniLogo
    }
  }
