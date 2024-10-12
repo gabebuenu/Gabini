@@ -1,94 +1,94 @@
 <template>
-  <div class="wrapper"> 
-    <h1 class="cadastro-title">Cadastro</h1>
-
-    <div class="progress-bar">
-      <div class="step-circle" :class="{'active': step >= 1}">
-        <span>1</span>
-      </div>
-      <div class="line" :class="{'filled': step >= 2, 'animating': step === 2}"></div>
-      <div class="step-circle" :class="{'active': step >= 2}">
-        <span>2</span>
-      </div>
-      <div class="line" :class="{'filled': step === 3, 'animating': step === 3}"></div>
-      <div class="step-circle" :class="{'active': step === 3}">
-        <span>3</span>
-      </div>
+  <div>
+    <!-- Spinner centralizado com fundo opaco -->
+    <div v-if="loading" class="spinner-overlay">
+      <Sppiner />
     </div>
 
-    <div class="container">
-      <!-- Primeiro passo -->
-      <div v-if="step === 1" class="form-step">
-        <input type="text" v-model="formData.nome" placeholder="Nome" />
-        <input type="text" v-model="formData.sobrenome" placeholder="Sobrenome" />
-        <input type="email" v-model="formData.email" placeholder="Email" />
-        <input type="email" v-model="formData.confirmEmail" placeholder="Confirmar Email" />
-        <input type="password" v-model="formData.senha" placeholder="Senha" />
-        <input type="password" v-model="formData.confirmSenha" placeholder="Confirmar Senha" />
-        <div class="button-container">
-          <button @click="nextStep">Próximo</button>
+    <!-- Componente de Cadastro exibido após o spinner -->
+    <div v-else class="wrapper">
+      <h1 class="cadastro-title">CADASTRO</h1>
+
+      <div class="progress-bar">
+        <div class="step-circle" :class="{'active': step >= 1}">
+          <span>1</span>
+        </div>
+        <div class="line" :class="{'filled': step >= 2, 'animating': step === 2}"></div>
+        <div class="step-circle" :class="{'active': step >= 2}">
+          <span>2</span>
+        </div>
+        <div class="line" :class="{'filled': step === 3, 'animating': step === 3}"></div>
+        <div class="step-circle" :class="{'active': step === 3}">
+          <span>3</span>
         </div>
       </div>
 
-      <!-- Segundo passo -->
-      <div v-if="step === 2" class="form-step">
-        <input type="text" v-model="formData.endereco" placeholder="Endereço" />
-        <input type="text" v-model="formData.bairro" placeholder="Bairro" />
-        <input type="text" v-model="formData.complemento" placeholder="Complemento" />
-        <input type="text" v-model="formData.cep" placeholder="CEP" />
-        <input type="text" v-model="formData.estado" placeholder="Estado" />
-        <input type="text" v-model="formData.telefone" placeholder="Telefone" />
-        <div class="button-container">
-          <button class="button-voltar" @click="prevStep">Voltar</button>
-          <button @click="nextStep">Próximo</button>
+      <div class="container">
+        <div v-if="step === 1" class="form-step">
+          <input type="text" v-model="formData.nome" placeholder="Nome" />
+          <input type="text" v-model="formData.sobrenome" placeholder="Sobrenome" />
+          <input type="email" v-model="formData.email" placeholder="Email" />
+          <input type="email" v-model="formData.confirmEmail" placeholder="Confirmar Email" />
+          <input type="password" v-model="formData.senha" placeholder="Senha" />
+          <input type="password" v-model="formData.confirmSenha" placeholder="Confirmar Senha" />
+          <div class="button-container">
+            <button @click="nextStep">Próximo</button>
+          </div>
         </div>
-      </div>
 
-      <!-- Terceiro passo com animação de troca de ícone -->
-      <div v-if="step === 3" class="form-step icon-selection">
-        
-        <!-- Container das setas e ícone -->
-        <div class="icon-navigation">
-          <div class="arrow arrow-left" @click="prevIcon">&#9664;</div>
-        
-          <!-- Container para os ícones masculinos e femininos -->
-          <transition name="fade">
-            <div>
-              <div v-if="selectedIcon === 'masculino'" key="masculino">
-                <svg class="user-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <circle cx="12" cy="8" r="4" fill="#000" />
-                  <rect x="9" y="12" width="6" height="10" fill="#000" />
-                </svg>
+        <div v-if="step === 2" class="form-step">
+          <input type="text" v-model="formData.endereco" placeholder="Endereço" />
+          <input type="text" v-model="formData.bairro" placeholder="Bairro" />
+          <input type="text" v-model="formData.complemento" placeholder="Complemento" />
+          <input type="text" v-model="formData.cep" placeholder="CEP" />
+          <input type="text" v-model="formData.estado" placeholder="Estado" />
+          <input type="text" v-model="formData.telefone" placeholder="Telefone" />
+          <div class="button-container">
+            <button class="button-voltar" @click="prevStep">Voltar</button>
+            <button @click="nextStep">Próximo</button>
+          </div>
+        </div>
+
+        <div v-if="step === 3" class="form-step icon-selection">
+          <div class="icon-navigation">
+            <div class="arrow arrow-left" @click="prevIcon">&#9664;</div>
+            <transition name="fade">
+              <div>
+                <div v-if="selectedIcon === 'masculino'" key="masculino">
+                  <svg class="user-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <circle cx="12" cy="8" r="4" fill="#000" />
+                    <rect x="9" y="12" width="6" height="10" fill="#000" />
+                  </svg>
+                </div>
+                <div v-if="selectedIcon === 'feminino'" key="feminino">
+                  <svg class="user-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <circle cx="12" cy="8" r="4" fill="#E91E63" />
+                    <path d="M12 12 l-3 10 h6 l-3 -10" fill="#E91E63" />
+                  </svg>
+                </div>
               </div>
-              <div v-if="selectedIcon === 'feminino'" key="feminino">
-                <svg class="user-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <circle cx="12" cy="8" r="4" fill="#E91E63" />
-                  <path d="M12 12 l-3 10 h6 l-3 -10" fill="#E91E63" />
-                </svg>
-              </div>
-            </div>
-          </transition>
+            </transition>
+            <div class="arrow arrow-right" @click="nextIcon">&#9654;</div>
+          </div>
 
-          <div class="arrow arrow-right" @click="nextIcon">&#9654;</div>
-        </div>
+          <div class="button-section">
+            <button class="confirm-btn">Confirmar</button>
+            <button class="photo-btn">Anexar foto</button>
+          </div>
 
-        <div class="button-section">
-          <button class="confirm-btn">Confirmar</button>
-          <button class="photo-btn">Anexar foto</button>
-        </div>
-
-        <!-- Botões "Voltar" e "Finalizar" grudados no final -->
-        <div class="button-container">
-          <button class="button-voltar" @click="prevStep">Voltar</button>
-          <button class="button-finalizar" @click="submitForm">Finalizar</button>
+          <div class="button-container">
+            <button class="button-voltar" @click="prevStep">Voltar</button>
+            <button class="button-finalizar" @click="submitForm">Finalizar</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-
 <script>
+import Sppiner from '@/components/Animacoes/Sppiner.vue';
+
 export default {
   data() {
     return {
@@ -108,9 +108,16 @@ export default {
         telefone: '',
         foto: null
       },
-      selectedIcon: 'masculino', // Estado para alternar entre masculino e feminino
+      selectedIcon: 'masculino',
       icons: ['masculino', 'feminino'],
+      loading: true // Flag para exibir o spinner
     };
+  },
+  mounted() {
+    // Exibir o spinner por 3 segundos antes de carregar o formulário de cadastro
+    setTimeout(() => {
+      this.loading = false;
+    }, 3000);
   },
   methods: {
     nextStep() {
@@ -120,12 +127,10 @@ export default {
       if (this.step > 1) this.step--;
     },
     prevIcon() {
-      // Alternar para o ícone anterior
       const currentIndex = this.icons.indexOf(this.selectedIcon);
       this.selectedIcon = this.icons[(currentIndex + this.icons.length - 1) % this.icons.length];
     },
     nextIcon() {
-      // Alternar para o próximo ícone
       const currentIndex = this.icons.indexOf(this.selectedIcon);
       this.selectedIcon = this.icons[(currentIndex + 1) % this.icons.length];
     },
@@ -133,6 +138,9 @@ export default {
       console.log('Formulário submetido:', this.formData);
       alert('Cadastro finalizado!');
     }
+  },
+  components: {
+    Sppiner
   }
 };
 </script>
@@ -190,7 +198,6 @@ html, body {
   }
 }
 
-/* Barra de progresso */
 .progress-bar {
   display: flex;
   flex-direction: row;
@@ -259,7 +266,6 @@ html, body {
   font-size: 16px;
 }
 
-/* Estilo do formulário */
 .form-step {
   display: grid;
   grid-template-columns: 1fr 1fr; 
@@ -312,7 +318,6 @@ button:hover {
   background-color: #333;
 }
 
-/* Estilo do upload de foto */
 .photo-upload {
   grid-column: span 2; 
   display: flex;
@@ -438,6 +443,24 @@ button:hover {
 
 .fade-enter, .fade-leave-to {
   opacity: 0;
+}
+
+.spinner-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(205, 205, 205, 0.145);
+  z-index: 9999; 
+}
+
+.wrapper {
+  opacity: 1;
+  transition: opacity 0.3s ease;
 }
 
 </style>
