@@ -117,7 +117,7 @@ export default {
     // Exibir o spinner por 3 segundos antes de carregar o formulário de cadastro
     setTimeout(() => {
       this.loading = false;
-    }, 3000);
+    }, 100);
   },
   methods: {
     nextStep() {

@@ -43,7 +43,7 @@
     mounted() {
       setTimeout(() => {
         this.showLogo = false;
-      }, 3000);
+      }, 100);
     },
     components: {
       RouterLink,
