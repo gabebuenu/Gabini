@@ -41,7 +41,7 @@
               <!-- Usa RouterLink para o redirecionamento para a página de login -->
               <RouterLink class="nav-link sign-in" to="/login">SIGN IN</RouterLink>
               <span class="nav-link px-2">|</span>
-              <a class="sign-up-text" href="#">SIGN UP FOR FREE</a>
+              <RouterLink class="sign-up-text" to="/cadastro">SIGN UP FOR FREE</RouterLink>
             </li>
           </ul>
         </div>
