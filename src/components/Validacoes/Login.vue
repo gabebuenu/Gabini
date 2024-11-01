@@ -47,7 +47,7 @@ export default {
         localStorage.setItem('authToken', token);
         alert('Login realizado com sucesso!');
         
-        this.$router.push('/home'); 
+        this.$router.push('/'); 
       } catch (error) {
         console.error('Erro no login:', error);
         alert('Email ou senha incorretos. Tente novamente.');
