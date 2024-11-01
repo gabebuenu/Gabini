@@ -1,55 +1,70 @@
 <template>
-    <div>
-      <GabiniLogo v-if="showLogo" />
-      <div v-else class="login-container">
-        <div class="wave"></div>
-  
-        <div class="login-form">
-          <h1 class="text-login">LOGIN</h1>
-          <form @submit.prevent="submitLogin">
-            <label for="email">Email:</label>
-            <input type="email" id="email" v-model="email" required />
-  
-            <label for="password">Senha:</label>
-            <input type="password" id="password" v-model="password" required />
-  
-            <button type="submit">Entrar</button>
-          </form>
-  
-          <RouterLink to="/cadastro" class="register-link">Cadastrar</RouterLink>
-        </div>
+  <div>
+    <GabiniLogo v-if="showLogo" />
+    <div v-else class="login-container">
+      <div class="wave"></div>
+
+      <div class="login-form">
+        <h1 class="text-login">LOGIN</h1>
+        <form @submit.prevent="submitLogin">
+          <label for="email">Email:</label>
+          <input type="email" id="email" v-model="email" required />
+
+          <label for="password">Senha:</label>
+          <input type="password" id="password" v-model="password" required />
+
+          <button type="submit">Entrar</button>
+        </form>
+
+        <RouterLink to="/cadastro" class="register-link">Cadastrar</RouterLink>
       </div>
     </div>
-  </template>
-  
-  <script>
-  import { RouterLink } from 'vue-router';
-  import GabiniLogo from '@/components/Animacoes/GabiniLogo.vue'; 
-  
-  export default {
-    data() {
-      return {
-        email: '',
-        password: '',
-        showLogo: true 
-      };
-    },
-    methods: {
-      submitLogin() {
-        alert(`Login de: ${this.email}`);
+  </div>
+</template>
+
+<script>
+import { RouterLink } from 'vue-router';
+import axios from 'axios';
+import GabiniLogo from '@/components/Animacoes/GabiniLogo.vue'; 
+
+export default {
+  data() {
+    return {
+      email: '',
+      password: '',
+      showLogo: true 
+    };
+  },
+  methods: {
+    async submitLogin() {
+      try {
+        const response = await axios.post('https://localhost:7250/api/SignUp/login', {
+          email: this.email,
+          senha: this.password
+        });
+
+        const token = response.data.token;
+        localStorage.setItem('authToken', token);
+        alert('Login realizado com sucesso!');
+        
+        this.$router.push('/home'); 
+      } catch (error) {
+        console.error('Erro no login:', error);
+        alert('Email ou senha incorretos. Tente novamente.');
       }
-    },
-    mounted() {
-      setTimeout(() => {
-        this.showLogo = false;
-      }, 100);
-    },
-    components: {
-      RouterLink,
-      GabiniLogo 
     }
-  };
-  </script>
+  },
+  mounted() {
+    setTimeout(() => {
+      this.showLogo = false;
+    }, 100);
+  },
+  components: {
+    RouterLink,
+    GabiniLogo 
+  }
+};
+</script>
   
   <style scoped>
   @import url('https://fonts.googleapis.com/css2?family=Futo+Sans:wght@900&display=swap');
