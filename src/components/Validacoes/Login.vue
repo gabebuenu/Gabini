@@ -1,6 +1,5 @@
 <template>
     <div>
-      <!-- Condicional para exibir o GabiniLogo antes do login -->
       <GabiniLogo v-if="showLogo" />
       <div v-else class="login-container">
         <div class="wave"></div>

@@ -1,32 +1,26 @@
 <template>
   <div>
-    <!-- Spinner centralizado com fundo opaco -->
     <div v-if="loading" class="spinner-overlay">
       <Sppiner />
     </div>
 
-    <!-- Componente de Cadastro exibido após o spinner -->
     <div v-else class="wrapper">
       <h1 class="cadastro-title">CADASTRO</h1>
 
       <div class="progress-bar">
-        <div class="step-circle" :class="{'active': step >= 1}">
-          <span>1</span>
-        </div>
+        <div class="step-circle" :class="{'active': step >= 1}"><span>1</span></div>
         <div class="line" :class="{'filled': step >= 2, 'animating': step === 2}"></div>
-        <div class="step-circle" :class="{'active': step >= 2}">
-          <span>2</span>
-        </div>
+        <div class="step-circle" :class="{'active': step >= 2}"><span>2</span></div>
         <div class="line" :class="{'filled': step === 3, 'animating': step === 3}"></div>
-        <div class="step-circle" :class="{'active': step === 3}">
-          <span>3</span>
-        </div>
+        <div class="step-circle" :class="{'active': step === 3}"><span>3</span></div>
       </div>
 
       <div class="container">
         <div v-if="step === 1" class="form-step">
-          <input type="text" v-model="formData.nome" placeholder="Nome" />
-          <input type="text" v-model="formData.sobrenome" placeholder="Sobrenome" />
+          <input type="text" v-model="formData.nome" placeholder="Nome Completo" />
+          <input type="text" v-model="formData.nomeSocial" placeholder="Nome Social" />
+          <input type="text" v-model="formData.cpf" placeholder="CPF" />
+          <input type="text" v-model="formData.nacionalidade" placeholder="Nacionalidade" />
           <input type="email" v-model="formData.email" placeholder="Email" />
           <input type="email" v-model="formData.confirmEmail" placeholder="Confirmar Email" />
           <input type="password" v-model="formData.senha" placeholder="Senha" />
@@ -37,11 +31,9 @@
         </div>
 
         <div v-if="step === 2" class="form-step">
-          <input type="text" v-model="formData.endereco" placeholder="Endereço" />
-          <input type="text" v-model="formData.bairro" placeholder="Bairro" />
+          <input type="text" v-model="formData.logradouro" placeholder="Logradouro" />
           <input type="text" v-model="formData.complemento" placeholder="Complemento" />
           <input type="text" v-model="formData.cep" placeholder="CEP" />
-          <input type="text" v-model="formData.estado" placeholder="Estado" />
           <input type="text" v-model="formData.telefone" placeholder="Telefone" />
           <div class="button-container">
             <button class="button-voltar" @click="prevStep">Voltar</button>
@@ -72,8 +64,14 @@
           </div>
 
           <div class="button-section">
-            <button class="confirm-btn">Confirmar</button>
-            <button class="photo-btn">Anexar foto</button>
+            <label>Cor:</label>
+            <select v-model="formData.cor">
+              <option value="">Selecione</option>
+              <option value="branco">Branco</option>
+              <option value="negro">Negro</option>
+              <option value="pardo">Pardo</option>
+            </select>
+            <input type="file" @change="onFileChange" accept=".png, .jpeg, .jpg" />
           </div>
 
           <div class="button-container">
@@ -87,6 +85,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import Sppiner from '@/components/Animacoes/Sppiner.vue';
 
 export default {
@@ -95,26 +94,27 @@ export default {
       step: 1,
       formData: {
         nome: '',
-        sobrenome: '',
+        nomeSocial: '',
+        cpf: '',
+        nacionalidade: '',
         email: '',
         confirmEmail: '',
         senha: '',
         confirmSenha: '',
-        endereco: '',
-        bairro: '',
+        logradouro: '',
         complemento: '',
         cep: '',
-        estado: '',
         telefone: '',
-        foto: null
+        foto: null,
+        cor: '',
+        sexo: 'masculino'
       },
       selectedIcon: 'masculino',
       icons: ['masculino', 'feminino'],
-      loading: true // Flag para exibir o spinner
+      loading: true
     };
   },
   mounted() {
-    // Exibir o spinner por 3 segundos antes de carregar o formulário de cadastro
     setTimeout(() => {
       this.loading = false;
     }, 100);
@@ -129,14 +129,54 @@ export default {
     prevIcon() {
       const currentIndex = this.icons.indexOf(this.selectedIcon);
       this.selectedIcon = this.icons[(currentIndex + this.icons.length - 1) % this.icons.length];
+      this.confirmSexo();  // Atualiza o campo sexo automaticamente
     },
     nextIcon() {
       const currentIndex = this.icons.indexOf(this.selectedIcon);
       this.selectedIcon = this.icons[(currentIndex + 1) % this.icons.length];
+      this.confirmSexo();  // Atualiza o campo sexo automaticamente
     },
-    submitForm() {
-      console.log('Formulário submetido:', this.formData);
-      alert('Cadastro finalizado!');
+    confirmSexo() {
+      this.formData.sexo = this.selectedIcon; // Define sexo com o ícone selecionado
+    },
+    onFileChange(event) {
+      const file = event.target.files[0];
+      if (file && (file.type === 'image/png' || file.type === 'image/jpeg')) {
+        this.formData.foto = file;
+        alert('Foto anexada com sucesso!');
+      } else {
+        alert('Por favor, selecione uma imagem válida (PNG ou JPEG).');
+      }
+    },
+    async submitForm() {
+      const formDataToSend = new FormData();
+      formDataToSend.append('username', this.formData.nome);
+      formDataToSend.append('nomeSocial', this.formData.nomeSocial);
+      formDataToSend.append('cpf', this.formData.cpf);
+      formDataToSend.append('nacionalidade', this.formData.nacionalidade);
+      formDataToSend.append('email', this.formData.email);
+      formDataToSend.append('telefone', this.formData.telefone);
+      formDataToSend.append('sexo', this.formData.sexo);
+      formDataToSend.append('cor', this.formData.cor);
+      formDataToSend.append('senha', this.formData.senha);
+      if (this.formData.foto) formDataToSend.append('foto', this.formData.foto);
+
+      formDataToSend.append('enderecos[0][logradouro]', this.formData.logradouro);
+      formDataToSend.append('enderecos[0][complemento]', this.formData.complemento);
+      formDataToSend.append('enderecos[0][cep]', this.formData.cep);
+
+      try {
+        const response = await axios.post('https://localhost:7250/api/SignUp/', formDataToSend, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+        console.log('Cadastro realizado com sucesso:', response.data);
+        alert('Cadastro finalizado com sucesso!');
+      } catch (error) {
+        console.error('Erro ao realizar o cadastro:', error);
+        alert('Erro ao finalizar o cadastro. Por favor, tente novamente.');
+      }
     }
   },
   components: {
@@ -144,6 +184,9 @@ export default {
   }
 };
 </script>
+
+
+
 
 <style scoped>
 html, body {
