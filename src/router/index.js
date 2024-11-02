@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue';
 import AboutView from '../views/AboutView.vue';
 import Cadastro from '../components/Validacoes/Cadastro.vue';
 import Login from '../components/Validacoes/Login.vue'; // Importa o componente Login
+import Editar from '@/components/Validacoes/EditarPerfil.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +27,11 @@ const router = createRouter({
       path: '/login', // Rota para Login
       name: 'login',
       component: Login
+    },
+    {
+      path: '/editar-perfil',
+      name: 'editar',
+      component: Editar
     }
   ]
 });
