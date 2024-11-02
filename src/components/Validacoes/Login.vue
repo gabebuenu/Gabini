@@ -41,11 +41,8 @@ export default {
           email: this.email,
           senha: this.password
         });
-
-        // Log completo da resposta da API para análise
         console.log("Resposta da API de Login:", response.data);
 
-        // Extração de `userId` e `token` usando a estrutura correta
         const { token, user } = response.data;
         const userId = user ? user.id : undefined;
 
@@ -66,7 +63,7 @@ export default {
         alert('Email ou senha incorretos. Tente novamente.');
       }
     }   
-    
+
   },
   mounted() {
     setTimeout(() => {
