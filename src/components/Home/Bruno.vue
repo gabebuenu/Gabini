@@ -33,7 +33,7 @@
                 <span class="user-name">{{ userProfile.username }}</span>
               </div>
               <div v-if="showDropdown" class="user-dropdown">
-                <button class="dropdown-item" @click="editProfile">Editar Perfil</button>
+                <Router-Link to="/editar-perfil"><button class="dropdown-item" @click="editProfile">Editar Perfil</button></Router-Link>
                 <button class="dropdown-item" @click="logout">Sair</button>
               </div>
             </div>
@@ -217,11 +217,11 @@ export default {
     position: absolute;
     top: 102%;
     left: 0;
-    width: 150px;
+    width: 177px;
     background-color: #000000;
     border-radius: 20px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 10px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 10px;
