@@ -27,10 +27,15 @@
           </li>
           <li class="nav-item"><a class="nav-link" href="#">SUPPORT</a></li>
           <li class="nav-item d-flex align-items-center">
-            <div v-if="isAuthenticated" class="user-box">
-              <img :src="userProfile.foto" alt="User Photo" class="user-photo">
-              <span class="user-name">{{ userProfile.username }}</span>
-              <button class="btn btn-logout" @click="logout">Sair</button>
+            <div v-if="isAuthenticated" class="user-box" @mouseenter="showDropdown = true" @mouseleave="showDropdown = false">
+              <div class="user-info">
+                <img :src="userProfile.foto" alt="User Photo" class="user-photo">
+                <span class="user-name">{{ userProfile.username }}</span>
+              </div>
+              <div v-if="showDropdown" class="user-dropdown">
+                <button class="dropdown-item" @click="editProfile">Editar Perfil</button>
+                <button class="dropdown-item" @click="logout">Sair</button>
+              </div>
             </div>
             <div v-else>
               <RouterLink class="nav-link sign-in" to="/login">SIGN IN</RouterLink>
@@ -58,13 +63,14 @@
 </template>
 
 <script>
-import { onMounted, watch } from 'vue';
+import { RouterLink } from 'vue-router';
 import axios from 'axios';
 
 export default {
   data() {
     return {
       isAuthenticated: false,
+      showDropdown: false,
       userProfile: {
         username: '',
         foto: ''
@@ -106,6 +112,10 @@ export default {
       localStorage.removeItem('userId');
       this.isAuthenticated = false;
       this.$router.push('/login'); 
+    },
+
+    editProfile() {
+      this.$router.push('/editar-perfil');
     }
   },
 
@@ -122,7 +132,6 @@ export default {
       }
     }
   }
-  
 };
 </script>
 
@@ -131,9 +140,24 @@ export default {
     background-color: white;
     border-width: 0.5px;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center; 
+    justify-content: space-between; 
 }
 
-.navbar-custom .navbar-brand,
+.navbar-custom .navbar-brand {
+    font-size: 40px;
+    font-weight: bold;
+    margin-right: 2rem; 
+}
+
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem; 
+}
+
 .navbar-custom .nav-link,
 .navbar-custom .dropdown-toggle {
     color: rgb(0, 0, 0);
@@ -141,39 +165,94 @@ export default {
 
 .navbar-custom .nav-link:hover,
 .navbar-custom .dropdown-toggle:hover {
-    color:  #007bff;
+    color: #007bff;
 }
 
-.navbar-brand {
-    margin-left: 10rem;
-    font-size: 40px; 
+.navbar-custom .nav-link.sign-in,
+.nav-item .sign-up-text {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #007bff;
+    text-decoration: none;
+    margin-left: 1rem; 
+}
+
+.navbar-custom .nav-link.sign-in:hover,
+.nav-item .sign-up-text:hover {
+    color: #034790;
+}
+
+.user-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 30px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 20px;
+    background-color: #000000;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-photo {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.user-name {
     font-weight: bold;
 }
 
-.navbar-nav {
+.user-dropdown {
+    position: absolute;
+    top: 102%;
+    left: 0;
+    width: 150px;
+    background-color: #000000;
+    border-radius: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
     display: flex;
-    justify-content: center;
-    width: 100%;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.navbar-custom .nav-link.sign-in {
-    margin-left: 100px; 
+.dropdown-item {
+    background: #000000;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
 }
 
-.nav-item .nav-link.px-2 {
-    color: black; 
-    margin: 0 10px;
+.dropdown-item:hover {
+    background: #666;
 }
 
 .nav-item .sign-up-text {
     color: #007bff;
-    text-decoration: none; 
-    margin-left: 10px; 
+    text-decoration: none;
+    margin-left: 10px;
 }
 
 .nav-item .sign-up-text:hover {
-    color: #034790; 
+    color: #034790;
 }
+
 
 header.home {
     background-color: #ffffff; 
@@ -222,37 +301,5 @@ header.home .titulo img {
 header.home .image img {
     max-width: 550px; 
     height: auto; 
-}
-.user-box {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 5px 10px;
-  background-color: #050505;
-  border-radius: 20px;
-}
-
-.user-photo {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-}
-
-.user-name {
-  font-weight: bold;
-  color: #333;
-}
-
-.btn-logout {
-  background-color: #dc3545;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.btn-logout:hover {
-  background-color: #c82333;
 }
 </style>
