@@ -3,7 +3,6 @@
     <GabiniLogo v-if="showLogo" />
     <div v-else class="login-container">
       <div class="wave"></div>
-
       <div class="login-form">
         <h1 class="text-login">LOGIN</h1>
         <form @submit.prevent="submitLogin">
@@ -25,14 +24,14 @@
 <script>
 import { RouterLink } from 'vue-router';
 import axios from 'axios';
-import GabiniLogo from '@/components/Animacoes/GabiniLogo.vue'; 
+import GabiniLogo from '@/components/Animacoes/GabiniLogo.vue';
 
 export default {
   data() {
     return {
       email: '',
       password: '',
-      showLogo: true 
+      showLogo: true
     };
   },
   methods: {
@@ -43,11 +42,25 @@ export default {
           senha: this.password
         });
 
-        const token = response.data.token;
-        localStorage.setItem('authToken', token);
-        alert('Login realizado com sucesso!');
-        
-        this.$router.push('/'); 
+        // Log completo da resposta da API para análise
+        console.log("Resposta da API de Login:", response.data);
+
+        // Extração de `userId` e `token` usando a estrutura correta
+        const { token, user } = response.data;
+        const userId = user ? user.id : undefined;
+
+        if (token && userId) {
+          localStorage.setItem('authToken', token);
+          localStorage.setItem('userId', userId);
+
+          console.log('Login realizado com sucesso!');
+          console.log('Token:', token);
+          console.log('UserId:', userId);
+
+          this.$router.push('/');
+        } else {
+          console.error('Token ou userId não retornado pela API de login.');
+        }
       } catch (error) {
         console.error('Erro no login:', error);
         alert('Email ou senha incorretos. Tente novamente.');
@@ -61,10 +74,11 @@ export default {
   },
   components: {
     RouterLink,
-    GabiniLogo 
+    GabiniLogo
   }
 };
 </script>
+
   
   <style scoped>
   @import url('https://fonts.googleapis.com/css2?family=Futo+Sans:wght@900&display=swap');
