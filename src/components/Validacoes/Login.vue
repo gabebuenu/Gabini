@@ -65,7 +65,8 @@ export default {
         console.error('Erro no login:', error);
         alert('Email ou senha incorretos. Tente novamente.');
       }
-    }
+    }   
+    
   },
   mounted() {
     setTimeout(() => {
