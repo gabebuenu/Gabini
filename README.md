@@ -15,6 +15,7 @@ Para execução do projeto:
 * 1 - Basta baixar o arquivo 
 * 2 - Roda-lo: Npm install na pasta raiz. Após isso dar NPM run dev.
 
+https://www.youtube.com/watch?v=K4wFd6c5bTU
 
 # eficaz
 
