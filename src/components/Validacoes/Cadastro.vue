@@ -129,23 +129,20 @@ export default {
     prevIcon() {
       const currentIndex = this.icons.indexOf(this.selectedIcon);
       this.selectedIcon = this.icons[(currentIndex + this.icons.length - 1) % this.icons.length];
-      this.confirmSexo();  // Atualiza o campo sexo automaticamente
+      this.confirmSexo();
     },
     nextIcon() {
       const currentIndex = this.icons.indexOf(this.selectedIcon);
       this.selectedIcon = this.icons[(currentIndex + 1) % this.icons.length];
-      this.confirmSexo();  // Atualiza o campo sexo automaticamente
+      this.confirmSexo();
     },
     confirmSexo() {
-      this.formData.sexo = this.selectedIcon; // Define sexo com o ícone selecionado
+      this.formData.sexo = this.selectedIcon;
     },
     onFileChange(event) {
       const file = event.target.files[0];
       if (file && (file.type === 'image/png' || file.type === 'image/jpeg')) {
         this.formData.foto = file;
-        alert('Foto anexada com sucesso!');
-      } else {
-        alert('Por favor, selecione uma imagem válida (PNG ou JPEG).');
       }
     },
     async submitForm() {
@@ -172,10 +169,9 @@ export default {
           }
         });
         console.log('Cadastro realizado com sucesso:', response.data);
-        alert('Cadastro finalizado com sucesso!');
+        this.$router.push('/login');  // Redireciona para a rota /login
       } catch (error) {
         console.error('Erro ao realizar o cadastro:', error);
-        alert('Erro ao finalizar o cadastro. Por favor, tente novamente.');
       }
     }
   },
@@ -184,6 +180,7 @@ export default {
   }
 };
 </script>
+
 
 
 

@@ -6,32 +6,26 @@
         <label for="username">Nome Completo:</label>
         <input type="text" id="username" v-model="formData.username" required />
       </div>
-
       <div class="form-group">
         <label for="nomeSocial">Nome Social:</label>
         <input type="text" id="nomeSocial" v-model="formData.nomeSocial" />
       </div>
-
       <div class="form-group">
         <label for="cpf">CPF:</label>
         <input type="text" id="cpf" v-model="formData.cpf" required />
       </div>
-
       <div class="form-group">
         <label for="nacionalidade">Nacionalidade:</label>
         <input type="text" id="nacionalidade" v-model="formData.nacionalidade" />
       </div>
-
       <div class="form-group">
         <label for="email">Email:</label>
         <input type="email" id="email" v-model="formData.email" required />
       </div>
-
       <div class="form-group">
         <label for="telefone">Telefone:</label>
         <input type="text" id="telefone" v-model="formData.telefone" />
       </div>
-
       <div class="form-group">
         <label for="sexo">Sexo:</label>
         <select v-model="formData.sexo">
@@ -40,7 +34,6 @@
           <option value="outro">Outro</option>
         </select>
       </div>
-
       <div class="form-group">
         <label for="cor">Cor:</label>
         <select v-model="formData.cor">
@@ -50,20 +43,22 @@
           <option value="outro">Outro</option>
         </select>
       </div>
-
       <div class="form-group">
         <label for="foto">Foto:</label>
         <input type="file" id="foto" @change="onFileChange" accept=".png, .jpeg, .jpg" />
       </div>
-
       <div class="form-group">
         <label for="novaSenha">Nova Senha:</label>
         <input type="password" id="novaSenha" v-model="formData.novaSenha" />
       </div>
-
       <button type="submit" class="btn-save">Salvar Alterações</button>
-      <Router-link to="/"><button>Voltar</button></Router-link>
+      <Router-link to="/"><button class="btn-save">Voltar</button></Router-link>
     </form>
+
+    <div v-if="showSuccessMessage" class="success-message">
+      <p>Perfil atualizado com sucesso!</p>
+      <button @click="goBack" class="btn-back">Voltar</button>
+    </div>
   </div>
 </template>
 
@@ -84,18 +79,14 @@ export default {
         cor: 'branco', // Valor padrão para evitar campo vazio
         novaSenha: '',
         foto: null
-      }
+      },
+      showSuccessMessage: false // Controle para mostrar mensagem de sucesso
     };
   },
   methods: {
     async fetchUserProfile() {
       const userId = localStorage.getItem('userId');
       const token = localStorage.getItem('authToken');
-
-      if (!userId || isNaN(Number(userId))) {
-        alert('ID do usuário inválido ou não encontrado.');
-        return;
-      }
 
       try {
         const response = await axios.get(`https://localhost:7250/api/SignUp/${userId}`, {
@@ -110,7 +101,6 @@ export default {
         };
       } catch (error) {
         console.error('Erro ao carregar perfil:', error);
-        alert('Erro ao carregar informações do perfil.');
       }
     },
 
@@ -118,19 +108,12 @@ export default {
       const file = event.target.files[0];
       if (file && (file.type === 'image/png' || file.type === 'image/jpeg')) {
         this.formData.foto = file;
-      } else {
-        alert('Por favor, selecione uma imagem válida (PNG ou JPEG).');
       }
     },
 
     async updateProfile() {
       const userId = localStorage.getItem('userId');
       const token = localStorage.getItem('authToken');
-
-      if (!userId || isNaN(Number(userId))) {
-        alert('ID do usuário inválido ou não encontrado.');
-        return;
-      }
 
       const formData = new FormData();
       formData.append('username', this.formData.username || '');
@@ -156,15 +139,14 @@ export default {
 
       try {
         await axios.put(`https://localhost:7250/api/SignUp/editar-perfil/${userId}`, formData, config);
-        alert('Perfil atualizado com sucesso!');
+        this.showSuccessMessage = true; // Exibe mensagem de sucesso
       } catch (error) {
         console.error('Erro ao atualizar perfil:', error);
-        if (error.response && error.response.data) {
-          alert(`Erro ao atualizar perfil: ${error.response.data.message}`);
-        } else {
-          alert('Erro ao atualizar perfil. Tente novamente.');
-        }
       }
+    },
+
+    goBack() {
+      this.$router.push('/');
     }
   },
   mounted() {
@@ -239,6 +221,34 @@ export default {
 
 .btn-save:hover {
   background-color: #333333;
+}
+
+.success-message {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #e0ffe0;
+  border: 1px solid #00cc00;
+  border-radius: 5px;
+  color: #006600;
+}
+
+.success-message p {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.btn-back {
+  margin-top: 10px;
+  padding: 8px 15px;
+  background-color: #00cc00;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-back:hover {
+  background-color: #009900;
 }
 
 @media (max-width: 768px) {

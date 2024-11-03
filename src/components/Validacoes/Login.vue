@@ -51,19 +51,14 @@ export default {
           localStorage.setItem('userId', userId);
 
           console.log('Login realizado com sucesso!');
-          console.log('Token:', token);
-          console.log('UserId:', userId);
-
-          this.$router.push('/');
+          this.$router.push('/');  // Redireciona para a página principal
         } else {
           console.error('Token ou userId não retornado pela API de login.');
         }
       } catch (error) {
-        console.error('Erro no login:', error);
-        alert('Email ou senha incorretos. Tente novamente.');
+        console.error('Erro no login:', error);  // Loga o erro no console
       }
-    }   
-
+    }
   },
   mounted() {
     setTimeout(() => {
@@ -76,6 +71,7 @@ export default {
   }
 };
 </script>
+
 
   
   <style scoped>
