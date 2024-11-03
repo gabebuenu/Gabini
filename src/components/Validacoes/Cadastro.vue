@@ -18,7 +18,7 @@
       <div class="container">
         <div v-if="step === 1" class="form-step">
           <input type="text" v-model="formData.nome" placeholder="Nome Completo" />
-          <input type="text" v-model="formData.nomeSocial" placeholder="Nome Social" />
+          <input type="text" v-model="formData.nomeSocial" placeholder="Apelido" />
           <input type="text" v-model="formData.cpf" placeholder="CPF" />
           <input type="text" v-model="formData.nacionalidade" placeholder="Nacionalidade" />
           <input type="email" v-model="formData.email" placeholder="Email" />
