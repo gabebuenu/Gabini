@@ -67,8 +67,12 @@ export default {
 
 <style scoped>
 .products-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Ocupa a altura total da viewport */
     text-align: center;
-    min-height: 100vh; 
     background-color: #f7f7f7;
     border: 1px solid #ddd; 
     border-radius: 25px;
@@ -185,4 +189,17 @@ export default {
         align-items: center;
     }
 }
+@media (max-width: 768px) {
+    .products-section {
+        max-width: 90%; /* Limita a largura para ajustar-se melhor no meio da tela */
+        margin: 0 auto; /* Centraliza o container horizontalmente */
+        padding: 20px; /* Ajusta o padding para telas menores */
+    }
+
+    .product-list {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
 </style>
