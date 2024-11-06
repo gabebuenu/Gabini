@@ -4,6 +4,14 @@
       <Sppiner />
     </div>
 
+    <div v-if="showSuccessMessage" class="modal-overlay">
+      <div class="success-modal">
+        <p>Cadastro realizado com sucesso!</p>
+        <p>Indo para o Login!</p>
+        <div class="loader"></div> 
+      </div>
+    </div>
+
     <div v-else class="wrapper">
       <h1 class="cadastro-title">CADASTRO</h1>
 
@@ -34,7 +42,7 @@
           <input type="text" v-model="formData.logradouro" placeholder="Logradouro" />
           <input type="text" v-model="formData.complemento" placeholder="Complemento" />
           <input type="text" v-model="formData.cep" placeholder="CEP" />
-          <input type="text" v-model="formData.telefone" placeholder="Telefone" />
+          <input type="text" v-model="formData.telefone" placeholder="Telefone (00)00000-0000" />
           <div class="button-container">
             <button class="button-voltar" @click="prevStep">Voltar</button>
             <button @click="nextStep">Próximo</button>
@@ -111,7 +119,8 @@ export default {
       },
       selectedIcon: 'masculino',
       icons: ['masculino', 'feminino'],
-      loading: true
+      loading: false,
+      showSuccessMessage: false
     };
   },
   mounted() {
@@ -162,15 +171,22 @@ export default {
       formDataToSend.append('enderecos[0][complemento]', this.formData.complemento);
       formDataToSend.append('enderecos[0][cep]', this.formData.cep);
 
+      this.loading = true;
       try {
-        const response = await axios.post('https://localhost:7250/api/SignUp/', formDataToSend, {
+        await axios.post('https://localhost:7250/api/SignUp/', formDataToSend, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
         });
-        console.log('Cadastro realizado com sucesso:', response.data);
-        this.$router.push('/login');  // Redireciona para a rota /login
+
+        this.loading = false;
+        this.showSuccessMessage = true;
+
+        setTimeout(() => {
+          this.$router.push('/login');
+        }, 2000);
       } catch (error) {
+        this.loading = false;
         console.error('Erro ao realizar o cadastro:', error);
       }
     }
@@ -432,6 +448,65 @@ button:hover {
   cursor: pointer;
   transition: background-color 0.3s ease;
   margin-bottom: 10px; 
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(5px);
+}
+
+.success-modal {
+  background-color: #00b050; 
+  padding: 30px 50px;
+  border-radius: 20px;
+  text-align: center;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.8); 
+  font-weight: bold;
+  position: relative;
+}
+
+.loader {
+  border: 4px solid rgba(255, 255, 255, 0.3); 
+  border-top: 4px solid #fff; 
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+  margin-top: 10px;
+  display: inline-block;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+input[type="text"][placeholder="Telefone (00)00000-0000"]::placeholder {
+  font-style: italic;
+  color: #aaa;
+}
+
+.spinner-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(205, 205, 205, 0.145);
+  z-index: 9999;
 }
 
 .photo-btn:hover {
