@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="loading" class="spinner-overlay">
-      <Sppiner />
+      <!-- <Sppiner /> -->
     </div>
 
     <div v-if="showSuccessMessage" class="modal-overlay">
@@ -42,7 +42,7 @@
           <input type="text" v-model="formData.logradouro" placeholder="Logradouro" />
           <input type="text" v-model="formData.complemento" placeholder="Complemento" />
           <input type="text" v-model="formData.cep" placeholder="CEP" />
-          <input type="text" v-model="formData.telefone" placeholder="Telefone (00)00000-0000" />
+          <input type="text" v-model="formData.telefone" placeholder="000000000" />
           <div class="button-container">
             <button class="button-voltar" @click="prevStep">Voltar</button>
             <button @click="nextStep">Próximo</button>
@@ -491,7 +491,7 @@ button:hover {
   100% { transform: rotate(360deg); }
 }
 
-input[type="text"][placeholder="Telefone (00)00000-0000"]::placeholder {
+input[type="text"][placeholder="000000000"]::placeholder {
   font-style: italic;
   color: #aaa;
 }
