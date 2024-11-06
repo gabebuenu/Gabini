@@ -57,7 +57,7 @@
 
     <div v-if="showSuccessMessage" class="success-message">
       <p>Perfil atualizado com sucesso!</p>
-      <button @click="goBack" class="btn-back">Voltar</button>
+      <button @click="goBack" class="btn-back">Concluído</button>
     </div>
   </div>
 </template>
