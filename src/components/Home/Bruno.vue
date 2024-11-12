@@ -234,21 +234,21 @@ export default {
     transition: 0.3s;
 }
 
-/* Login e Autenticação */
 .sign-in,
 .sign-up-text {
-    color: #000;
+    color: #000000;
     font-size: 15px;
     font-weight: bold;
     text-decoration: none;
 }
+
 
 .sign-up-text:hover,
 .sign-in:hover {
     color: #0D82FE;
 }
 
-/* Ajuste de Espaçamento e Alinhamento para LOGIN */
+
 .nav-item.d-flex.align-items-center {
     display: flex;
     align-items: center;
@@ -286,14 +286,14 @@ export default {
     display: block;
 }
 
-/* Estilos de Sign In e Sign Up */
+
 .auth-links {
     display: flex;
     align-items: center;
-    gap: 8px; /* Espaçamento entre os links */
+    gap: 8px; 
 }
 
-/* Responsivo */
+
 @media (max-width: 844px) {
     .hamburger {
         display: block;
