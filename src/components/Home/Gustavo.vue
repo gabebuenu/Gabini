@@ -17,7 +17,6 @@
           @click="mudarCor('azul')">
         </button>
         
-        <!-- Botão Vermelho -->
         <button 
           class="botao-cor vermelho" 
           :class="{ selecionado: corSelecionada === 'vermelho' }" 
@@ -41,7 +40,7 @@
 export default {
   data() {
     return {
-      corSelecionada: 'azul', // Cor inicial selecionada
+      corSelecionada: 'azul', 
       imagensProdutos: {
         azul: new URL('../../assets/img/produto1.png', import.meta.url).href,
         vermelho: new URL('../../assets/img/produto2.png', import.meta.url).href  
