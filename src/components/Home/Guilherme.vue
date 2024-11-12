@@ -3,6 +3,7 @@
     <div class="item-card">
       <div class="item-desc">
         <div class="item-icon">
+          <!-- Concertado -->
           <img src="../../assets/img/Icons.svg" alt="">
         </div>
         <div class="item-info">
