@@ -29,8 +29,8 @@
   
   <script>
   import { useRouter } from 'vue-router';
-  import image1 from '@/assets/img/1.svg';
-  import image2 from '@/assets/img/2.svg';
+  import image1 from '../../assets/img/1.svg';
+  import image2 from '../../assets/img/2.svg';
   
   export default {
     setup() {

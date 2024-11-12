@@ -3,8 +3,8 @@
     <div class="item-card">
       <div class="item-desc">
         <div class="item-icon">
-          <!-- Ajuste do caminho da imagem -->
-          <img src="../../assets/img/icons.svg" alt="">
+          <!-- Concertado -->
+          <img src="../../assets/img/Icons.svg" alt="">
         </div>
         <div class="item-info">
           <p>Item Weight</p>
@@ -17,7 +17,7 @@
     <div class="item-card">
       <div class="item-desc">
         <div class="item-icon">
-          <img src="../../assets/img/icons.svg" alt="">
+          <img src="../../assets/img/Icons.svg" alt="">
         </div>
         <div class="item-info">
           <p>Item Weight</p>
