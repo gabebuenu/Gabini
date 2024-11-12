@@ -78,7 +78,7 @@
     justify-content: space-between;
     width: 88%;
     max-width: 1200px;
-    margin: 0 auto; 
+    margin: 30px auto; 
 }
 
 .text-section {

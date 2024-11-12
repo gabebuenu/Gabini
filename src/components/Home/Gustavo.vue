@@ -33,8 +33,8 @@ data() {
   return {
     corSelecionada: 'azul',
     imagensProdutos: {
-      azul: new URL('@/assets/img/produto1.png', import.meta.url).href,  // Caminho estático
-      vermelho: new URL('@/assets/img/produto2.png', import.meta.url).href  // Caminho estático
+      azul: new URL('@/assets/img/produto1.png', import.meta.url).href,
+      vermelho: new URL('@/assets/img/produto2.png', import.meta.url).href  
     }
   };
 },
@@ -51,12 +51,15 @@ methods: {
 };
 </script>
 
-<style scoped>
+<style>
 .container-headi {
-    min-height: 100vh; 
+    width: 90%;             
+    max-width: 1400px;      
+    height: 100vh;           
     background-color: #f7f7f7; 
     border: 1px solid #ddd; 
-    padding: 40px;
+    padding: 20px;         
+    margin: 60px auto; 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -64,6 +67,7 @@ methods: {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
     border-radius: 25px;
 }
+
 
 .produto img {
     max-width: 100%;

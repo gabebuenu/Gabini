@@ -87,13 +87,16 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    text-align: center;
+    min-height: 100vh;           
+    width: 90%;                 
+    max-width: 1400px;
+    padding: 40px;
+    margin: 60px auto;           
     background-color: #f7f7f7;
     border: 1px solid #ddd; 
     border-radius: 25px;
-    padding: 40px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
+    text-align: center; 
 }
 
 .products-section h2 {

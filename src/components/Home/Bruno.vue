@@ -126,7 +126,7 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&display=swap');
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
 
-/* Reset e Fonte Global */
+
 * {
     margin: 0;
     padding: 0;
@@ -134,7 +134,6 @@ export default {
     font-family: "Inter", serif !important;
 }
 
-/* Cabeçalho e Navegação */
 .header {
     background: #fff;
     padding-inline: 16px;
@@ -144,7 +143,7 @@ export default {
 .logo {
     font-size: 24px;
     font-weight: bold;
-    color: #000;
+    color: #000000;
 }
 
 .nav {
