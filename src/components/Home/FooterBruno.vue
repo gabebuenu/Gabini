@@ -2,7 +2,7 @@
     <div class="container">
             <div class="footer-g">
                 <div class="footer-g-box">
-                    <img src="@/assets/img/Gabini.png" alt="" class="logos">
+                    <img src="../../assets/img/Gabini.png" alt="" class="logos">
                     <div class="layer1">
                         <div class="footer-menu-box">
                             <div class="footer-menu">
@@ -32,10 +32,10 @@
                         <div class="sub">
                             <h5>Subscribe to Newsletter</h5>
                             <p>Sign up for exclusive offers, original <br> stories, events and more.</p>
-                            <button class="btn_footer">Email Address <div class="btn-ball"><img src="@/assets/img/arrow.svg" alt=""></div></button>
+                            <button class="btn_footer">Email Address <div class="btn-ball"><img src="../../assets/img/arrow.svg" alt=""></div></button>
                         </div>
                     </div>
-                    <img class="f-logo" src="@/assets/img/rodape-gabini.svg" alt="">
+                    <img class="f-logo" src="../../assets/img/rodape-gabini.svg" alt="">
                  
                     <div class="layer2">
                         <div class="line">&nbsp;</div>
@@ -47,7 +47,7 @@
                                 <a href="">Customer Service</a>
                             </div>
 
-                            <img src="@/assets/img/teste.svg" alt="">
+                            <img src="../../assets/img/teste.svg" alt="">
                         </div>
                     </div>
                 </div>
