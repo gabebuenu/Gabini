@@ -1,55 +1,54 @@
 <template>
-    <div class="container">
-            <div class="products">
-                <div>
-                    <h1>TESTIMONIALS</h1>
-                    <p>Voices of Satisfaction: Discover What Our Clients Have to Say</p>
-                </div>
-        
-                <div class="r-card-box">
-                    <div class="r-card" id="card1">
-                        <img src="../../assets/img/gate.svg" alt="">
-                        <p>I absolutely love this coffee maker! I use it every morning. Cold coffee is my favorite and this little machine makes great cold coffee. It is strong and tasty. I regular coffee cup or a larger stainless steel cup will work. </p>
-                        <img src="../../assets/img/user01.svg" alt="">
-                    </div>
-                    <div class="r-card" id="card2">
-                        <img src="../../assets/img/gate.svg" alt="">
-                        <p>I love the slim design of this Keurig. It works well except for the cold coffee. It states it does both hot and cold but I haven't found that to be accurate. The hot is perfect but it doesn't produce the cold coffee.</p>
-                        <img src="../../assets/img/user02.svg" alt="">
-                    </div>
-                    <div class="r-card" id="card3">
-                        <img src="../../assets/img/gate.svg" alt="">
-                        <p>Nothing wrong with the maker but seller had it "On sale"truns out their supposed sale price was actually what the product actually sells for normally. It's retail price is 119.99. And is currently on sale for 64.99 </p>
-                        <img src="../../assets/img/user03.svg" alt="">
-                    </div>
-                    <div class="r-card" id="card4">
-                        <img src="../../assets/img/gate.svg" alt="">
-                        <p>I absolutely love this coffee maker! I use it every morning. Cold coffee is my favorite and this little machine makes great cold coffee. It is strong and tasty. I regular coffee cup or a larger stainless steel cup will work. </p>
-                        <img src="../../assets/img/user04.svg" alt="">
-                    </div>
-                    <div class="r-card" id="card5">
-                        <img src="../../assets/img/gate.svg" alt="">
-                        <p>I love the slim design of this Keurig. It works well except for the cold coffee. It states it does both hot and cold but I haven't found that to be accurate. The hot is perfect but it doesn't produce the cold coffee.</p>
-                        <img src="../../assets/img/user05.svg" alt="">
-                    </div>
-                    <div class="r-card" id="card6">
-                        <img src="../../assets/img/gate.svg" alt="">
-                        <p>Nothing wrong with the maker but seller had it "On sale"truns out their supposed sale price was actually what the product actually sells for normally. It's retail price is 119.99. And is currently on sale for 64.99 </p>
-                        <img src="../../assets/img/user06.svg" alt="">
-                    </div>
-                </div>
-        
-                <div class="btn-box">
-                    <button class="prox">
-                        <img src="../../assets/img/icon-next.svg" alt="">
-                    </button>
-                    <button class="nex">
-                        <img src="../../assets/img/icon-next.svg" alt="">
-                    </button>
-                </div>
-            </div>
-        </div>
-
+  <div class="container">
+      <div class="testimonial-area">
+          <div>
+              <h1>TESTIMONIALS</h1>
+              <p>Voices of Satisfaction: Discover What Our Clients Have to Say</p>
+          </div>
+  
+          <div class="testimonial-carousel">
+              <div class="testimonial-item" id="testimonial1">
+                  <img src="../../assets/img/gate.svg" alt="">
+                  <p>I absolutely love this coffee maker! I use it every morning. Cold coffee is my favorite and this little machine makes great cold coffee. It is strong and tasty. I regular coffee cup or a larger stainless steel cup will work. </p>
+                  <img src="../../assets/img/user01.svg" alt="">
+              </div>
+              <div class="testimonial-item" id="testimonial2">
+                  <img src="../../assets/img/gate.svg" alt="">
+                  <p>I love the slim design of this Keurig. It works well except for the cold coffee. It states it does both hot and cold but I haven't found that to be accurate. The hot is perfect but it doesn't produce the cold coffee.</p>
+                  <img src="../../assets/img/user02.svg" alt="">
+              </div>
+              <div class="testimonial-item" id="testimonial3">
+                  <img src="../../assets/img/gate.svg" alt="">
+                  <p>Nothing wrong with the maker but seller had it "On sale" turns out their supposed sale price was actually what the product actually sells for normally. It's retail price is 119.99. And is currently on sale for 64.99 </p>
+                  <img src="../../assets/img/user03.svg" alt="">
+              </div>
+              <div class="testimonial-item" id="testimonial4">
+                  <img src="../../assets/img/gate.svg" alt="">
+                  <p>I absolutely love this coffee maker! I use it every morning. Cold coffee is my favorite and this little machine makes great cold coffee. It is strong and tasty. I regular coffee cup or a larger stainless steel cup will work. </p>
+                  <img src="../../assets/img/user04.svg" alt="">
+              </div>
+              <div class="testimonial-item" id="testimonial5">
+                  <img src="../../assets/img/gate.svg" alt="">
+                  <p>I love the slim design of this Keurig. It works well except for the cold coffee. It states it does both hot and cold but I haven't found that to be accurate. The hot is perfect but it doesn't produce the cold coffee.</p>
+                  <img src="../../assets/img/user05.svg" alt="">
+              </div>
+              <div class="testimonial-item" id="testimonial6">
+                  <img src="../../assets/img/gate.svg" alt="">
+                  <p>Nothing wrong with the maker but seller had it "On sale" turns out their supposed sale price was actually what the product actually sells for normally. It's retail price is 119.99. And is currently on sale for 64.99 </p>
+                  <img src="../../assets/img/user06.svg" alt="">
+              </div>
+          </div>
+  
+          <div class="carousel-navigation">
+              <button class="prev-nav">
+                  <img src="../../assets/img/icon-next.svg" alt="">
+              </button>
+              <button class="next-nav">
+                  <img src="../../assets/img/icon-next.svg" alt="">
+              </button>
+          </div>
+      </div>
+  </div>
 </template>
 
 <script>
