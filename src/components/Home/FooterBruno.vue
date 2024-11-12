@@ -1,58 +1,58 @@
 <template>
-    <div class="container">
-            <div class="footer-g">
-                <div class="footer-g-box">
-                    <img src="../../assets/img/Gabini.png" alt="" class="logos">
-                    <div class="layer1">
-                        <div class="footer-menu-box">
-                            <div class="footer-menu">
-                                <h5>Menu</h5>
-                                <a href="">Home</a>
-                                <a href="">About Us</a>
-                                <a href="">Product </a>
-                                <a href="">Pricing</a>
-                            </div>
-                            <div class="footer-menu">
-                                <h5>Resources</h5>
-                                <a href="">Forum</a>
-                                <a href="">Support</a>
-                                <a href="">Partners </a>
-                                <a href="">Events</a>
-                            </div>
-                            <div class="footer-menu">
-                                <h5>My Account</h5>
-                                <a href="">My Orders</a>
-                                <a href="">FAQ</a>
-                                <a href="">Sales conditions</a>
-                                <a href="">Contact </a>
-                                <a href="">Legal mentions</a>
-                            </div>
-                        </div>
+  <div class="container">
+      <div class="footer-section">
+          <div class="footer-box">
+              <img src="../../assets/img/Gabini.png" alt="" class="brand-logo">
+              <div class="content-wrapper">
+                  <div class="menu-wrapper">
+                      <div class="menu-column">
+                          <h5>Menu</h5>
+                          <a href="">Home</a>
+                          <a href="">About Us</a>
+                          <a href="">Product </a>
+                          <a href="">Pricing</a>
+                      </div>
+                      <div class="menu-column">
+                          <h5>Resources</h5>
+                          <a href="">Forum</a>
+                          <a href="">Support</a>
+                          <a href="">Partners </a>
+                          <a href="">Events</a>
+                      </div>
+                      <div class="menu-column">
+                          <h5>My Account</h5>
+                          <a href="">My Orders</a>
+                          <a href="">FAQ</a>
+                          <a href="">Sales conditions</a>
+                          <a href="">Contact </a>
+                          <a href="">Legal mentions</a>
+                      </div>
+                  </div>
 
-                        <div class="sub">
-                            <h5>Subscribe to Newsletter</h5>
-                            <p>Sign up for exclusive offers, original <br> stories, events and more.</p>
-                            <button class="btn_footer">Email Address <div class="btn-ball"><img src="../../assets/img/arrow.svg" alt=""></div></button>
-                        </div>
-                    </div>
-                    <img class="f-logo" src="../../assets/img/rodape-gabini.svg" alt="">
-                 
-                    <div class="layer2">
-                        <div class="line">&nbsp;</div>
-                        <div class="copy">
-                            <p>© 2024 Gabini Headset Store. - All Rights Reserved</p>
-                            <div class="l-box">
-                                <a href="">Products</a>
-                                <a href="">Privacy Policy</a>
-                                <a href="">Customer Service</a>
-                            </div>
+                  <div class="newsletter-signup">
+                      <h5>Subscribe to Newsletter</h5>
+                      <p>Sign up for exclusive offers, original <br> stories, events and more.</p>
+                      <button class="email-btn">Email Address <div class="arrow-btn"><img src="../../assets/img/arrow.svg" alt=""></div></button>
+                  </div>
+              </div>
+              <img class="footer-logo" src="../../assets/img/rodape-gabini.svg" alt="">
 
-                            <img src="../../assets/img/teste.svg" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+              <div class="footer-bottom">
+                  <div class="divider-line">&nbsp;</div>
+                  <div class="footer-info">
+                      <p>© 2024 Gabini Headset Store. - All Rights Reserved</p>
+                      <div class="footer-links">
+                          <a href="">Products</a>
+                          <a href="">Privacy Policy</a>
+                          <a href="">Customer Service</a>
+                      </div>
+
+                      <img src="../../assets/img/teste.svg" alt="">
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 </template>
 
 <script>
