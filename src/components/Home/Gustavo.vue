@@ -11,7 +11,6 @@
       </div>
       <div class="opcoes-cor">
         <p>Color Options</p>
-        <!-- Botão Azul -->
         <button 
           class="botao-cor azul" 
           :class="{ selecionado: corSelecionada === 'azul' }" 
@@ -126,12 +125,10 @@ export default {
   display: inline-block;
 }
 
-/* Para o botão azul (gradiente fixo) */
 .botao-cor.azul {
   background: conic-gradient(from 0deg at 50% 100%, #5CD0F3 0deg, #5CD0F3 120deg, #FFA5C5 120deg, #FFA5C5 240deg);
 }
 
-/* Para o botão vermelho (gradiente fixo) */
 .botao-cor.vermelho {
   background: conic-gradient(from 0deg at 50% 50%, #FF5733 0deg, #FF5733 180deg, #2F3C89 180deg, #2F3C89 360deg);
 }
