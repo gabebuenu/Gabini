@@ -7,7 +7,8 @@
       </button>
       <div class="collapse navbar-collapse nav" id="navbarNavDropdown">
         <ul class="navbar-nav mx-auto nav-list">
-          <li class="nav-item"><a class="nav-link active" href="#">HOME</a></li>
+          <li class="nav-item"><Router-Link class="nav-link active" to="/">HOME</Router-Link></li>
+          <Router-Link to="/products" class="nav-link">Produtos</Router-Link>
           <li class="nav-item"><a class="nav-link" href="#">SALE</a></li>
           <li class="nav-item"><a class="nav-link" href="#">BUNDLE & SAVE</a></li>
           <li class="nav-item dropdown">
