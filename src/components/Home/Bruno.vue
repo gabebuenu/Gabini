@@ -173,7 +173,6 @@ export default {
     color: #0D82FE;
 }
 
-/* Dropdown Menu */
 .dropdown {
     position: relative;
 }
