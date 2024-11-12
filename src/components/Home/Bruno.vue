@@ -14,15 +14,15 @@
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">SHOP BY CATEGORY</a>
             <ul class="dropdown-menu dropdown-content">
               <li class="dropdown-submenu">
-                <a class="dropdown-item dropdown-toggle" href="#">ITEM 01</a>
+                <a class="dropdown-item dropdown-toggle" href="#">Fones</a>
                 <ul class="dropdown-menu sub-dropdown">
-                  <li><a class="dropdown-item" href="#">ITEM 05</a></li>
-                  <li><a class="dropdown-item" href="#">ITEM 06</a></li>
+                  <li><a class="dropdown-item" href="#">Headphones</a></li>
+                  <li><a class="dropdown-item" href="#">Earphones</a></li>
                 </ul>
               </li>
-              <li><a class="dropdown-item" href="#">ITEM 02</a></li>
-              <li><a class="dropdown-item" href="#">ITEM 03</a></li>
-              <li><a class="dropdown-item" href="#">ITEM 04</a></li>
+              <li><a class="dropdown-item" href="#">Carregadores</a></li>
+              <li><a class="dropdown-item" href="#">Acessórios</a></li>
+              <li><a class="dropdown-item" href="#">Todos os Produtos</a></li>
             </ul>
           </li>
           <li class="nav-item"><a class="nav-link" href="#">SUPPORT</a></li>
