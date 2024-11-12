@@ -68,7 +68,6 @@
 </script>
 
 <style scoped>
-/* teste */
 
 .offer-container {
     background: linear-gradient(to right, #2472d1, #15bbe9);
