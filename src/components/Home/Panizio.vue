@@ -23,7 +23,7 @@
         </a>
         <h2 class="terms">Ends 18/08. Restrictions apply. See details.</h2>
       </div>
-      <img src="@/assets/img/headset.png" alt="Headset" class="headset-img">
+      <img src="../../assets/img/headset.png" alt="Headset" class="headset-img">
     </div>
   </template>
   

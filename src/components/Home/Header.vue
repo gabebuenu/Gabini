@@ -5,24 +5,24 @@
               <h1>Gabini <br>Headset <br> Store</h1>
               <div class="info">
                   <h2>Welcome to Gabini quality, at <br> our most welcoming price.</h2>
-                  <button class="btn_hero">See More Details <div class="btn-ball"><img src="@/assets/img/arrow.svg" alt=""></div></button>
+                  <button class="btn_hero">See More Details <div class="btn-ball"><img src="../../assets/img/arrow.svg" alt=""></div></button>
               </div>
               <div class="ratings">
-                  <div class="stars"><div class="stars-box"><h3>4.8</h3><img src="@/assets/img/gati.svg" alt=""></div><p>2,290 ratings</p></div>
+                  <div class="stars"><div class="stars-box"><h3>4.8</h3><img src="../../assets/img/gati.svg" alt=""></div><p>2,290 ratings</p></div>
                   <div class="ten-k"><h2>10k+</h2><p>Bought in past month</p></div>
               </div>
           </div>
-          <div class="card-head"> <img class="phone" src="@/assets/img/image_.svg" alt="">
-          <div class="ch-desc"> <div class="ch-circle"><img src="@/assets/img/line.svg" alt=""></div><div class="ch-text"><p>Warranty</p><b>2 years</b></div></div>
-          <div class="ch-desc1"> <div class="ch-circle"><img src="@/assets/img/line1.svg" alt=""></div><div class="ch-text"><p>Battery</p><b>78 Hours</b></div></div>
+          <div class="card-head"> <img class="phone" src="../../assets/img/image_.svg" alt="">
+          <div class="ch-desc"> <div class="ch-circle"><img src="../../assets/img/line.svg" alt=""></div><div class="ch-text"><p>Warranty</p><b>2 years</b></div></div>
+          <div class="ch-desc1"> <div class="ch-circle"><img src="../../assets/img/line1.svg" alt=""></div><div class="ch-text"><p>Battery</p><b>78 Hours</b></div></div>
           </div>
       </div>
       <div class="hl-box">
           <div class="line1">
-              <div class="line-box"><span>Your text here</span> <img src="@/assets/img/line.png" alt="" class="vector"></div>
+              <div class="line-box"><span>Your text here</span> <img src="../../assets/img/line.png" alt="" class="vector"></div>
           </div>
           <div class="line2">
-              <div class="line-box1"><span>Your text here</span> <img src="@/assets/img/line.png" alt="" class="vector"></div>
+              <div class="line-box1"><span>Your text here</span> <img src="../../assets/img/line.png" alt="" class="vector"></div>
           </div>
       </div>
   </div>
