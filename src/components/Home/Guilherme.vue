@@ -1,33 +1,33 @@
 <template>
-    <div class="container d-flex align-items-center justify-content-between">
-      <div class="item-card">
-        <div class="item-desc">
-          <div class="item-icon">
-            <img src="@/assets/img/icons.svg" alt="">
-          </div>
-          <div class="item-info">
-            <p>Item Weight</p>
-            <b>2.6 Pounds</b>
-          </div>
+  <div class="container d-flex align-items-center justify-content-between">
+    <div class="item-card">
+      <div class="item-desc">
+        <div class="item-icon">
+          <img src="../../assets/img/icons.svg" alt="">
         </div>
-        <h1>Find the <br> Perfect gifts</h1>
-        <img class="item-bg" src="@/assets/img/preto.png" alt="">
-      </div>
-      <div class="item-card">
-        <div class="item-desc">
-          <div class="item-icon">
-            <img src="@/assets/img/icons.svg" alt="">
-          </div>
-          <div class="item-info">
-            <p>Item Weight</p>
-            <b>2.6 Pounds</b>
-          </div>
+        <div class="item-info">
+          <p>Item Weight</p>
+          <b>2.6 Pounds</b>
         </div>
-        <h1>Find the <br> Perfect gifts</h1>
-        <img class="item-bg" src="@/assets/img/rosa.png" alt="">
       </div>
+      <h1>Find the <br> Perfect gifts</h1>
+      <img class="item-bg" src="../../assets/img/preto.png" alt="">
     </div>
-  </template>
+    <div class="item-card">
+      <div class="item-desc">
+        <div class="item-icon">
+          <img src="../../assets/img/icons.svg" alt="">
+        </div>
+        <div class="item-info">
+          <p>Item Weight</p>
+          <b>2.6 Pounds</b>
+        </div>
+      </div>
+      <h1>Find the <br> Perfect gifts</h1>
+      <img class="item-bg" src="../../assets/img/rosa.png" alt="">
+    </div>
+  </div>
+</template>
   
   <style scoped>
   

@@ -33,8 +33,8 @@ data() {
   return {
     corSelecionada: 'azul',
     imagensProdutos: {
-      azul: new URL('@/assets/img/produto1.png', import.meta.url).href,
-      vermelho: new URL('@/assets/img/produto2.png', import.meta.url).href  
+      azul: new URL('../../assets/img/produto1.png', import.meta.url).href,
+      vermelho: new URL('../../assets/img/produto2.png', import.meta.url).href  
     }
   };
 },
