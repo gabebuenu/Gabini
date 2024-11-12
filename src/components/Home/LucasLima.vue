@@ -82,7 +82,8 @@ mounted() {
       currentPage++;
       updateCarousel();
     }
-  });
+  }); 
+  // testando
 
   updateCarousel();
 }
