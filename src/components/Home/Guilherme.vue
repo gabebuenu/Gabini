@@ -3,7 +3,7 @@
       <div class="item-card">
         <div class="item-desc">
           <div class="item-icon">
-            <img src="@/assets/img/Icons.svg" alt="">
+            <img src="@/assets/img/icons.svg" alt="">
           </div>
           <div class="item-info">
             <p>Item Weight</p>
@@ -11,12 +11,12 @@
           </div>
         </div>
         <h1>Find the <br> Perfect gifts</h1>
-        <img class="item-bg" src="@/assets/img/f-preto.png" alt="">
+        <img class="item-bg" src="@/assets/img/preto.png" alt="">
       </div>
       <div class="item-card">
         <div class="item-desc">
           <div class="item-icon">
-            <img src="@/assets/img/Icons.svg" alt="">
+            <img src="@/assets/img/icons.svg" alt="">
           </div>
           <div class="item-info">
             <p>Item Weight</p>
@@ -24,7 +24,7 @@
           </div>
         </div>
         <h1>Find the <br> Perfect gifts</h1>
-        <img class="item-bg" src="@/assets/img/f-rosa.png" alt="">
+        <img class="item-bg" src="@/assets/img/rosa.png" alt="">
       </div>
     </div>
   </template>
