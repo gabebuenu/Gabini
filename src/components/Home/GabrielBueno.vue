@@ -1,69 +1,85 @@
 <template>
     <div class="products-section">
-        <h2>NEW PRODUCTS</h2>
-        <p>Choose the headset that best suits your needs. We offer top-quality options with a variety of features to enhance your audio experience</p>
-        <div class="product-list">
-            <div class="product-card" v-for="(product, index) in products" :key="index">
-                <img 
-                    :src="product.src" 
-                    alt="Headset" 
-                    class="product-image" 
-                    @mouseover="hoverImage(index)" 
-                    @mouseout="resetImage(index)"
-                >
-                <p>{{ product.description }}</p>
-                <div class="price">
-                    {{ product.price }}
-                    <span class="original-price">{{ product.originalPrice }}</span>
-                </div>
-                <button>ADD TO CART<i class="bi bi-cart3"></i></button>
-            </div>
+      <h2>NEW PRODUCTS</h2>
+      <p>Choose the headset that best suits your needs. We offer top-quality options with a variety of features to enhance your audio experience</p>
+      <div class="product-list">
+        <div 
+          class="product-card" 
+          v-for="(product, index) in products" 
+          :key="index"
+          @click="navigateToProduct(index)" 
+          @mouseover="hoverImage(index)"
+          @mouseout="resetImage(index)"
+        >
+          <img 
+            :src="product.src" 
+            alt="Headset" 
+            class="product-image"
+          >
+          <p>{{ product.description }}</p>
+          <div class="price">
+            {{ product.price }}
+            <span class="original-price">{{ product.originalPrice }}</span>
+          </div>
+          <button>ADD TO CART<i class="bi bi-cart3"></i></button>
         </div>
+      </div>
     </div>
-</template>
-
-<script>
-import image1 from '@/assets/img/1.svg';
-import image2 from '@/assets/img/2.svg';
-
-export default {
+  </template>
+  
+  <script>
+  import { useRouter } from 'vue-router';
+  import image1 from '@/assets/img/1.svg';
+  import image2 from '@/assets/img/2.svg';
+  
+  export default {
+    setup() {
+      const router = useRouter();
+  
+      const navigateToProduct = (index) => {
+        router.push({ name: 'product', params: { id: index } }); 
+      };
+  
+      return { navigateToProduct };
+    },
     data() {
-        return {
-            products: [
-                {
-                    src: image1,
-                    hoverSrc: image2,
-                    description: 'Gabini® K-29 Premium Headset with Multi-Device Connectivity and Noise-Canceling Technology, Black.',
-                    price: '$94.99',
-                    originalPrice: '$139.99'
-                },
-                {
-                    src: image1,
-                    hoverSrc: image2,
-                    description: 'Gabini® K-29 Premium Headset with Multi-Device Connectivity and Noise-Canceling Technology, Black.',
-                    price: '$94.99',
-                    originalPrice: '$139.99'
-                },
-                {
-                    src: image1,
-                    hoverSrc: image2,
-                    description: 'Gabini® K-29 Premium Headset with Multi-Device Connectivity and Noise-Canceling Technology, Black.',
-                    price: '$94.99',
-                    originalPrice: '$139.99'
-                }
-            ]
-        }
+      return {
+        products: [
+          {
+            src: image1,
+            hoverSrc: image2,
+            description: 'Gabini® K-29 Premium Headset with Multi-Device Connectivity and Noise-Canceling Technology, Black.',
+            price: '$94.99',
+            originalPrice: '$139.99'
+          },
+          {
+            src: image1,
+            hoverSrc: image2,
+            description: 'Gabini® K-30 Premium Headset with Multi-Device Connectivity and Noise-Canceling Technology, Black.',
+            price: '$104.99',
+            originalPrice: '$149.99'
+          },
+          {
+            src: image1,
+            hoverSrc: image2,
+            description: 'Gabini® K-31 Premium Headset with Multi-Device Connectivity and Noise-Canceling Technology, Black.',
+            price: '$114.99',
+            originalPrice: '$159.99'
+          }
+        ]
+      }
     },
     methods: {
-        hoverImage(index) {
-            this.products[index].src = this.products[index].hoverSrc;
-        },
-        resetImage(index) {
-            this.products[index].src = image1;
-        }
+      hoverImage(index) {
+        this.products[index].src = this.products[index].hoverSrc;
+      },
+      resetImage(index) {
+        this.products[index].src = image1;
+      }
     }
-}
-</script>
+  }
+  </script>
+  
 
 <style scoped>
 .products-section {
@@ -71,7 +87,7 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 100vh; /* Ocupa a altura total da viewport */
+    min-height: 100vh;
     text-align: center;
     background-color: #f7f7f7;
     border: 1px solid #ddd; 
@@ -107,6 +123,13 @@ export default {
     width: 250px;
     text-align: center;
     overflow: hidden;
+    cursor: pointer; /* Cursor de ponteiro para indicar que é clicável */
+    transition: transform 0.3s ease; /* Transição para o efeito hover */
+}
+
+.product-card:hover {
+    transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Sombras ao passar o mouse */
 }
 
 .product-card img {
@@ -182,24 +205,20 @@ export default {
     margin-left: 20px;
 }
 
-
-@media (max-width: 768px) {
-    .product-list {
-        flex-direction: column;
-        align-items: center;
-    }
-}
 @media (max-width: 768px) {
     .products-section {
-        max-width: 90%; /* Limita a largura para ajustar-se melhor no meio da tela */
-        margin: 0 auto; /* Centraliza o container horizontalmente */
-        padding: 20px; /* Ajusta o padding para telas menores */
+        max-width: 90%;
+        margin: 0 auto;
+        padding: 20px;
     }
 
     .product-list {
         flex-direction: column;
         align-items: center;
     }
-}
 
+    .product-card {
+        width: 100%; /* Ajuste para mobile */
+    }
+}
 </style>
