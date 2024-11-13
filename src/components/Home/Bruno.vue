@@ -199,7 +199,7 @@ export default {
     display: block;
 }
 
-/* Sub-dropdown */
+
 .sub-dropdown {
     display: none;
     position: absolute;
@@ -215,7 +215,7 @@ export default {
     display: block;
 }
 
-/* Botão de Menu Hamburger */
+
 .hamburger {
     display: none;
     background: none;
