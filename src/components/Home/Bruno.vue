@@ -142,10 +142,12 @@ export default {
 }
 
 .logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: #000000;
+    margin-left: 290px;
+    font-size: 40px;
+    font-weight: 900;
+    margin-right: -250px;
 }
+
 
 .nav {
     display: flex;
@@ -168,6 +170,14 @@ export default {
     text-decoration: none !important;
     padding-block: 16px;
     transition: color 0.3s;
+}
+
+a.sign-up-text {
+    color: #6798cd !important;
+}
+
+a.sign-up-text:hover {
+    color: #007bff !important;
 }
 
 .nav-list a:hover {
