@@ -142,10 +142,9 @@ export default {
 }
 
 .logo {
-    margin-left: 290px;
     font-size: 40px;
     font-weight: 900;
-    margin-right: -250px;
+    margin-right: auto; 
 }
 
 
