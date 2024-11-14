@@ -61,236 +61,206 @@ export default {
 }
 </script>
 
-<style scoped> 
+<style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 .footer-box {
-position: relative;
-width: 85%;
-display: flex;
-flex-direction: column;
+  position: relative;
+  width: 85%;
+  display: flex;
+  flex-direction: column;
 }
 
 .brand-logo {
-filter: invert(1);
-max-width: 204px;
-margin-bottom: 50px;
-}
-
-.menu-wrapper {
-display: flex;
-gap: 130px;
-}
-
-.menu-column {
-display: flex;
-flex-direction: column;
-gap: 20px;
-}
-
-.newsletter-signup {
-display: flex;
-flex-direction: column;
-gap: 20px;
-}
-
-.email-btn {
-width: 400px;
-font-weight: 300;
-font-size: 16px;
-align-items: center;
-gap: 20px;
-padding: 10px 10px 10px 20px;
-display: flex;
-color: #BFC0C2;
-border-radius: 60px;
-background-color: #4B4B4B;
-border: 1px solid #8c8a8a;
-justify-content: space-between;
-transition: 400ms;
-}
-
-.arrow-btn {
-filter: invert(0) !important;
-}
-
-.footer-logo {
-margin-top: 40px;
-}
-
-.footer-bottom {
-position: absolute;
-bottom: 0;
-width: 100%;
-display: flex;
-flex-direction: column;
-background-color: #000;
-height: 8vh;
-}
-
-.divider-line {
-width: 100%;
-height: 1px;
-background-color: #4B4B4B;
-margin-top: 40px;
-margin-bottom: 30px;
-}
-
-.footer-links {
-display: flex;
-gap: 16px;
-}
-
-.footer-info {
-display: flex;
-align-items: center;
-justify-content: space-between;
-}
-
-.footer-info p, .footer-info a {
-margin: 0;
-color: #fff !important;
-text-decoration-thickness: 2px;
-}
-
-.footer-info a {
-text-decoration: underline !important;
-}
-
-.footer-section {
-position: relative;
-margin: 5% 0%;
-width: 100%;
-height: 780px;
-border-radius: 30px;
-background-color: #000;
-display: flex;
-align-items: center;
-justify-content: center;
-}
-
-.content-wrapper {
-width: 100%;
-display: flex;
-justify-content: space-between;
-
-& h5 {
-  color: #fff;
-  font-weight: 700;
-  font-size: 20px;
-}
-
-& a {
-  color: #b8b8b8;
-  text-transform: none;
-  font-size: 18px;
-}
-
-& p {
-  color: #656565;
-  font-size: 15px;
-  font-weight: 400;
-}
-}
-
-.footer-box {
-position: relative;
-width: 85%;
-display: flex;
-flex-direction: column;
-
-& .brand-logo {
   filter: invert(1);
   max-width: 204px;
   margin-bottom: 50px;
 }
 
-}
-
 .menu-wrapper {
-display: flex;
-gap: 130px;
+  display: flex;
+  gap: 130px;
 }
 
 .menu-column {
-display: flex;
-flex-direction: column;
-gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .newsletter-signup {
-display: flex;
-flex-direction: column;
-gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .email-btn {
-width: 400px;
-text-transform: none;
-font-weight: 300;
-font-size: 16px;
-align-items: center;
-gap: 20px;
-padding: 10px 10px 10px 20px;
-display: flex;
-color: #BFC0C2;
-border-radius: 60px;
-background-color: #4B4B4B;
-border: 1px solid #8c8a8a;
-
-justify-content: space-between;
-transition: 400ms;
-
-& i {
-  font-size: 20px;
+  width: 400px;
+  font-weight: 300;
+  font-size: 16px;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 10px 10px 20px;
+  display: flex;
+  color: #BFC0C2;
+  border-radius: 60px;
+  background-color: #4B4B4B;
+  border: 1px solid #8c8a8a;
+  justify-content: space-between;
+  transition: 400ms;
 }
 
-& .arrow-btn {
+.arrow-btn {
   filter: invert(0) !important;
-}
 }
 
 .footer-logo {
-margin-top: 40px;
+  margin-top: 40px;
 }
 
-.footer-bottom{
-position: absolute;
-bottom: 0;
-width: 100%;
-display: flex;
-flex-direction: column;
-background-color: #000;
-height: 8vh;
+.footer-bottom {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #000;
+  height: 8vh;
 }
 
 .divider-line {
-width: 100%;
-height: 1px;
-background-color: #4B4B4B;
-margin-top: 40px;
-margin-bottom: 30px;
+  width: 100%;
+  height: 1px;
+  background-color: #4B4B4B;
+  margin-top: 40px;
+  margin-bottom: 30px;
 }
 
 .footer-links {
-display: flex;
-gap: 16px;
+  display: flex;
+  gap: 16px;
 }
 
 .footer-info {
-display: flex;
-align-items: center;
-justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-& p, a {
+.footer-info p, .footer-info a {
   margin: 0;
   color: #fff !important;
-  text-decoration-thickness: 2px; 
-  
+  text-decoration-thickness: 2px;
 }
 
-& a {
-  text-decoration: underline !important; 
+.footer-info a {
+  text-decoration: underline !important;
 }
+
+.footer-section {
+  position: relative;
+  margin: 5% 0%;
+  width: 100%;
+  height: 780px;
+  border-radius: 30px;
+  background-color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.content-wrapper h5 {
+  color: #fff;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.content-wrapper a {
+  color: #b8b8b8;
+  text-transform: none;
+  font-size: 18px;
+}
+
+.content-wrapper p {
+  color: #656565;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+  .footer-section {
+    height: auto;
+    padding: 20px;
+  }
+
+  .footer-box {
+    width: 100%;
+  }
+
+  .menu-wrapper {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .email-btn {
+    width: 100%;
+  }
+
+  .footer-info {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .footer-links {
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .content-wrapper {
+    flex-direction: column;
+    align-items: flex-start; /* Alinha o conteúdo à esquerda para telas pequenas */
+    padding-left: 10px; /* Adiciona espaçamento à esquerda */
+  }
+
+  .menu-column h5 {
+    text-align: left;
+  }
+
+  .newsletter-signup {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .footer-bottom {
+    height: auto;
+    padding: 10px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-column a, .footer-info a, .footer-info p {
+    font-size: 14px;
+  }
+
+  .footer-box {
+    gap: 20px;
+  }
+
+  .email-btn {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .brand-logo, .footer-logo {
+    max-width: 150px;
+  }
 }
 </style>
