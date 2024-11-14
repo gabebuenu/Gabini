@@ -1,7 +1,7 @@
 <template>
     <div>
       <!-- Navbar Bruno -->
-      <Bruno />
+      <Bruno class="bruno-navbar" />
   
       <!-- Container Principal de Produtos -->
       <div class="products-view">
@@ -88,11 +88,21 @@
   </script>
   
   <style scoped>
+  .bruno-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Certifique-se de que está acima dos outros elementos */
+    background-color: white; /* Defina a cor de fundo para que seja visível */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Opcional: adicione uma sombra para destacar */
+  }
+
   /* Estilo UI Design e Responsivo */
   .products-view {
     padding: 20px;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 100px auto;
   }
   
   .search-filter {
