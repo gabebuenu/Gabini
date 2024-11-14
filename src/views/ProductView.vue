@@ -1,9 +1,9 @@
 <template>
   <!-- Navbar Bruno -->
-  <Bruno />
+  <Bruno class="bruno-navbar" />
 
   <!-- Product Container -->
-  <div class="product-container">
+  <div ref="productContainer" class="product-container">
     <div class="product-image-section">
       <!-- Botão de seta esquerda -->
       <button class="arrow-button left-arrow" @click="previousImage">‹</button>
@@ -36,6 +36,7 @@
   <!-- Footer Bruno -->
   <FooterBruno />
 </template>
+
 
 <script>
 import Bruno from '@/components/Home/Bruno.vue';
@@ -91,21 +92,43 @@ export default {
     nextImage() {
       this.currentImageIndex = (this.currentImageIndex + 1) % this.product.mainImages.length;
     }
+  },
+  mounted() {
+    // Usa o ref para rolar até o início da `product-container`
+    this.$nextTick(() => {
+      if (this.$refs.productContainer) {
+        this.$refs.productContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
   }
 };
 </script>
 
+
 <style scoped>
+/* Estilo fixo para a barra de navegação */
+.bruno-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Certifique-se de que está acima dos outros elementos */
+  background-color: white; /* Defina a cor de fundo para que seja visível */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Opcional: adicione uma sombra para destacar */
+}
+
+/* Ajuste o padding superior para que o conteúdo abaixo da navbar não fique escondido */
 .product-container {
   display: flex;
   gap: 170px;
-  padding: 20px;
+  padding: 80px 20px 20px; /* 80px de padding-top para evitar sobreposição */
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   box-sizing: border-box;
 }
 
+/* Resto dos estilos... */
 .product-image-section {
   position: relative;
   display: flex;
@@ -188,5 +211,98 @@ export default {
 
 .buy-button:hover {
   background-color: #333;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+  .product-container {
+    flex-direction: column;
+    gap: 20px;
+    padding: 90px 10px 10px; /* Ajuste para compensar a navbar fixa */
+  }
+  
+  .main-image {
+    width: 300px;
+    height: 300px;
+  }
+
+  .preview-image {
+    width: 40px;
+    height: 40px;
+  }
+
+  .arrow-button {
+    font-size: 1.5em;
+  }
+
+  .left-arrow {
+    left: -20px;
+  }
+
+  .right-arrow {
+    right: -20px;
+  }
+
+  .product-name {
+    font-size: 1.2em;
+  }
+
+  .product-price {
+    font-size: 1.5em;
+  }
+
+  .buy-button {
+    font-size: 0.9em;
+    padding: 8px 16px;
+  }
+}
+
+/* Ajustes adicionais para dispositivos muito pequenos */
+@media (max-width: 480px) {
+  .product-container {
+    gap: 15px;
+    padding: 100px 5px 5px; /* Ajuste para compensar a navbar fixa */
+  }
+
+  .main-image {
+    width: 250px;
+    height: 250px;
+  }
+
+  .preview-image {
+    width: 30px;
+    height: 30px;
+  }
+
+  .product-details {
+    text-align: center;
+    padding: 0 10px;
+  }
+
+  .product-name {
+    font-size: 1em;
+  }
+
+  .product-description, .product-price {
+    font-size: 1em;
+  }
+
+  .buy-button {
+    font-size: 0.8em;
+    padding: 6px 12px;
+  }
+
+  .arrow-button {
+    font-size: 2.2em;
+    top: 45%;
+    left: -300px;
+    right: -10px;
+  }
+  .right-arrow{
+    font-size: 2.2em;
+    top: 45%;
+    left: -10px;
+    right: -300px;
+  }
 }
 </style>
