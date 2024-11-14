@@ -15,7 +15,7 @@
  <script>
 
  import Bruno from '../components/Home/Bruno.vue'
- import Header from '@/components/Home/Header.vue'
+ import Header from '../components/Home/Header.vue'
  import Guilherme from '../components/Home/Guilherme.vue'
  import GabrielBueno from '../components/Home/GabrielBueno.vue'
  import Panizio from '../components/Home/Panizio.vue'

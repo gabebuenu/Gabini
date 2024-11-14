@@ -17,8 +17,11 @@ import { RouterLink, RouterView } from 'vue-router'
 }
 
 html, body {
+    overflow-y: auto;
     overflow-x: hidden;
+    height: 100%;
 }
+
 
 .section {
     margin-bottom: 20px; 

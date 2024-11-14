@@ -216,6 +216,10 @@ export default {
     display: block;
 }
 
+.navbar-collapse {
+  transition: height 0.3s ease;
+}
+
 @media (max-width: 844px) {
     .navbar-collapse {
         transition: height 0.3s ease;

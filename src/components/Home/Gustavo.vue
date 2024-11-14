@@ -60,7 +60,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .container-headi {
   width: 90%;             
   max-width: 1400px;      

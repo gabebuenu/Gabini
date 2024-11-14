@@ -376,6 +376,7 @@ h1 {
 
 @media (max-width: 768px) {
   .hl-box {
+    overflow-y: auto;
     gap: 15px;
   }
 
@@ -383,6 +384,7 @@ h1 {
     height: 2rem; 
     width: 100%; 
     transform: none; 
+    overflow: hidden;
   }
 
   .line1 {
