@@ -49,13 +49,30 @@ mounted() {
 
 <style scoped>
 .hero {
-  overflow: hidden !important;
+  overflow: visible !important;
   width: 100%;
-  height: 120vh;
+  height: auto;
   position: relative;
   display: flex;
   align-items: center;
+  overflow-y: auto;
+  height: auto;
   justify-content: center;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.text-box h1 {
+  font-size: 4rem;
+  margin-top: 40px;
 }
 
 .vector {
@@ -83,6 +100,7 @@ mounted() {
   top: 300px;
   transform: rotate(26deg);
 }
+
 
 .line2 {
   top: 300px;
@@ -128,6 +146,36 @@ h1 {
   color: #000 !important;
   font-size: 7rem !important;
   line-height: 1 !important;
+}
+
+
+@media (max-width: 768px) {
+  .text-box h1 {
+    font-weight: 900 !important;
+    text-align: left;
+    font-size: 5.5rem !important; 
+    line-height: 1.2 !important; 
+    margin: 10px 0 !important; 
+  }
+}
+
+@media (max-width: 480px) {
+  .text-box h1 {
+    font-weight: 900 !important;
+    text-align: left;
+    font-size: 4.5rem !important;
+    line-height: 1.3 !important;
+  }
+}
+@media (max-width: 480px) {
+  .ten-k h2 {
+    font-weight: 900 !important; 
+    text-transform: uppercase;
+  }
+
+  .ten-k p{
+    text-align: left;
+  }
 }
 
 .text-box {
@@ -217,22 +265,24 @@ h1 {
 }
 
 .card-head {
-  position: absolute;
   border-radius: 30px;
-  right: 5%;
-  position: relative;
   background-image: url(/src/assets/img/retangulo.svg);
   background-size: cover;
-  width: 34rem;
-  height: 35.79rem;
+  width: 100%;
+  max-width: 34rem;
+  height: auto;
   display: flex;
   align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  position: relative;
 }
 
 .phone {
-  right: -5%;
-  bottom: 0;
-  position: absolute;
+  width: 100%;
+  max-width: 450px;
+  position: relative;
+  margin-bottom: 10px;
 }
 
 .ch-desc, .ch-desc1 {
@@ -282,5 +332,76 @@ h1 {
 
 .ch-text b {
   font-size: 20px;
+}
+
+/* Estilos específicos para dispositivos móveis */
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    align-items: right;
+    padding: 20px;
+  }
+
+  .text-box {
+    text-align: center;
+    gap: 20px;
+  }
+
+  .text-box h1 {
+    font-size: 1rem;
+  }
+
+  .text-box h2 {
+    font-size: 1rem;
+  }
+
+  .info {
+    padding-left: 0;
+    border-left: none;
+  }
+
+  .ratings {
+    justify-content: center;
+    gap: 10px;
+  }
+
+  /* .card-head {
+    width: 100%;
+    max-width: 90%;
+    margin: 20px 0;
+  } */
+
+
+}
+
+@media (max-width: 768px) {
+  .hl-box {
+    gap: 15px;
+  }
+
+  .line1, .line2 {
+    height: 2rem; 
+    width: 100%; 
+    transform: none; 
+  }
+
+  .line1 {
+    right: 0;
+    top: 0;
+  }
+
+  .line2 {
+    right: 0;
+    top: 0;
+  }
+
+  .line-box, .line-box1 {
+    gap: 5px; 
+
+  .vector {
+    width: 8px; 
+    height: 8px;
+  }
+}
 }
 </style>
