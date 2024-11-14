@@ -80,6 +80,7 @@
     width: 88%;
     max-width: 1200px;
     margin: 30px auto; 
+    flex-wrap: wrap; /* Permite que os elementos se ajustem em telas menores */
 }
 
 .text-section {
@@ -87,6 +88,7 @@
     flex: 1;
 }
 
+/* Ajuste de fontes e espaçamento para títulos e parágrafos */
 .offer-container h1 {
     font-size: 3.8em;
     color: #ffffff;
@@ -100,12 +102,13 @@
     font-weight: bold;
 }
 
+/* Countdown responsivo */
 .countdown {
     font-size: 6em;
     color: #ffffff;
     margin: 20px 0;
     display: flex;
-    gap: 80px;
+    gap: 40px;
 }
 
 .countdown div {
@@ -167,4 +170,58 @@
     height: auto;
     margin-left: 30px;
 }
+
+/* Estilos responsivos para dispositivos móveis */
+@media (max-width: 768px) {
+    .offer-container {
+        padding: 20px;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .offer-container h1 {
+        font-size: 2em;
+        margin-bottom: 15px;
+    }
+
+    .offer-container p {
+        font-size: 0.9em;
+        margin-bottom: 20px;
+    }
+
+    .countdown {
+        font-size: 2.5em;
+        gap: 15px;
+    }
+
+    .countdown div {
+        width: 80px;
+    }
+
+    .countdown-label {
+        font-size: 0.3em;
+    }
+
+    .shop-now {
+        font-size: 0.8em;
+        padding: 8px 20px;
+    }
+
+    .shop-now .arrow-circle {
+        width: 25px;
+        height: 25px;
+    }
+
+    .offer-container h2 {
+        font-size: 0.6em;
+    }
+
+    .headset-img {
+        max-width: 70%;
+        margin-top: 20px;
+        margin-left: 0;
+    }
+}
+
 </style>
