@@ -1,84 +1,92 @@
 <template>
-    <div class="products-section">
-      <h2>NEW PRODUCTS</h2>
-      <p>Choose the headset that best suits your needs. We offer top-quality options with a variety of features to enhance your audio experience</p>
-      <div class="product-list">
-        <div 
-          class="product-card" 
-          v-for="(product, index) in products" 
-          :key="index"
-          @click="navigateToProduct(index)" 
-          @mouseover="hoverImage(index)"
-          @mouseout="resetImage(index)"
+  <div class="products-section">
+    <h2>NEW PRODUCTS</h2>
+    <p>Choose the headset that best suits your needs. We offer top-quality options with a variety of features to enhance your audio experience</p>
+    <div class="product-list">
+      <div
+        class="product-card"
+        v-for="(product, index) in products"
+        :key="product.id"
+        @click="navigateToProduct(product.id)"
+        @mouseover="hoverImage(index)"
+        @mouseout="resetImage(index)"
+      >
+        <img
+          :src="product.src" 
+          alt="Headset"
+          class="product-image"
         >
-          <img 
-            :src="product.src" 
-            alt="Headset" 
-            class="product-image"
-          >
-          <p>{{ product.description }}</p>
-          <div class="price">
-            {{ product.price }}
-            <span class="original-price">{{ product.originalPrice }}</span>
-          </div>
-          <button>ADD TO CART<i class="bi bi-cart3"></i></button>
+        <p>{{ product.nome }}</p>
+        <div class="price">
+          {{ product.preco | currency }}
         </div>
+        <button>ADD TO CART<i class="bi bi-cart3"></i></button>
       </div>
     </div>
-  </template>
-  
-  <script>
-  import { useRouter } from 'vue-router';
-  import image1 from '../../assets/img/1.svg';
-  import image2 from '../../assets/img/2.svg';
-  
-  export default {
-    setup() {
-      const router = useRouter();
-  
-      const navigateToProduct = (index) => {
-        router.push({ name: 'product', params: { id: index } }); 
-      };
-  
-      return { navigateToProduct };
-    },
-    data() {
-      return {
-        products: [
-          {
-            src: image1,
-            hoverSrc: image2,
-            description: 'Gabini® K-29 Premium Headset with Multi-Device Connectivity and Noise-Canceling Technology, Black.',
-            price: '$94.99',
-            originalPrice: '$139.99'
-          },
-          {
-            src: image1,
-            hoverSrc: image2,
-            description: 'Gabini® K-30 Premium Headset with Multi-Device Connectivity and Noise-Canceling Technology, Black.',
-            price: '$104.99',
-            originalPrice: '$149.99'
-          },
-          {
-            src: image1,
-            hoverSrc: image2,
-            description: 'Gabini® K-31 Premium Headset with Multi-Device Connectivity and Noise-Canceling Technology, Black.',
-            price: '$114.99',
-            originalPrice: '$159.99'
-          }
-        ]
+  </div>
+</template>
+
+<script>
+import axios from 'axios';
+import { useRouter } from 'vue-router';
+
+export default {
+  setup() {
+    const router = useRouter();
+
+    const navigateToProduct = (id) => {
+      router.push({ name: 'product', params: { id } });
+    };
+
+    return { navigateToProduct };
+  },
+  data() {
+    return {
+      products: [],
+    };
+  },
+  created() {
+    this.fetchProducts();
+  },
+  methods: {
+    async fetchProducts() {
+      try {
+        const response = await axios.get('https://localhost:7250/api/Product');
+
+        // Verifique se `response.data.$values` é um array antes de usar `.map()`
+        if (Array.isArray(response.data.$values)) {
+          // Filtra os produtos que têm os IDs 1, 2 ou 3
+          this.products = response.data.$values
+            .filter(product => [1, 2, 3].includes(product.id))
+            .map(product => ({
+              id: product.id,
+              nome: product.nome,
+              preco: product.preco,
+              src: product.imagem, // Usa o caminho da imagem retornado pela API
+            }));
+        } else {
+          console.error("Erro: `response.data.$values` não é uma lista de produtos", response.data);
+        }
+      } catch (error) {
+        console.error('Erro ao buscar produtos:', error);
       }
     },
-    methods: {
-      hoverImage(index) {
-        this.products[index].src = this.products[index].hoverSrc;
-      },
-      resetImage(index) {
-        this.products[index].src = image1;
-      }
+    hoverImage(index) {
+      // Alterna para uma imagem de hover se necessário
+      this.products[index].src = this.products[index].src;
+    },
+    resetImage(index) {
+      this.products[index].src = this.products[index].src;
+    },
+  },
+  filters: {
+    currency(value) {
+      return `$${parseFloat(value).toFixed(2)}`;
     }
   }
-  </script>
+};
+</script>
+
   
 
 <style scoped>
