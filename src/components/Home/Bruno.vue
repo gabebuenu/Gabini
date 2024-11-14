@@ -2,10 +2,10 @@
   <nav class="navbar navbar-expand-lg header">
     <div class="container-fluid">
       <a class="navbar-brand logo" href="#">GABINI</a>
-      <button class="navbar-toggler hamburger" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" @click="toggleNavbar" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse nav" id="navbarNavDropdown">
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav mx-auto nav-list">
           <li class="nav-item"><Router-Link class="nav-link active" to="/">HOME</Router-Link></li>
           <Router-Link to="/products" class="nav-link">Produtos</Router-Link>
@@ -62,16 +62,23 @@ export default {
       userProfile: {
         username: '',
         foto: ''
-      }
+      },
+      isNavbarOpen: false,
     };
   },
   methods: {
+    toggleNavbar() {
+      this.isNavbarOpen = !this.isNavbarOpen;
+      const navbarCollapse = document.getElementById("navbarNavDropdown");
+      if (this.isNavbarOpen) {
+        navbarCollapse.classList.add("show");
+      } else {
+        navbarCollapse.classList.remove("show");
+      }
+    },
     async fetchUserProfile() {
       const token = localStorage.getItem('authToken');
       const userId = localStorage.getItem('userId');
-
-      console.log("Token recuperado:", token);
-      console.log("UserId recuperado:", userId);
 
       if (token && userId) {
         try {
@@ -84,10 +91,7 @@ export default {
             foto: `data:image/png;base64,${response.data.foto}`
           };
           this.isAuthenticated = true;
-
-          console.log('Perfil do usuário carregado com sucesso:', this.userProfile);
         } catch (error) {
-          console.error('Erro ao buscar o perfil do usuário:', error);
           this.isAuthenticated = false;
         }
       } else {
@@ -125,15 +129,6 @@ export default {
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&display=swap');
-@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
-
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Inter", serif !important;
-}
 
 .header {
     background: #fff;
@@ -147,11 +142,12 @@ export default {
     margin-right: auto; 
 }
 
-
-.nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.navbar-toggler {
+    border: none;
+    outline: none;
+}
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba%280, 0, 0, 0.7%29' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 
 .nav-list {
@@ -159,28 +155,12 @@ export default {
     align-items: center;
     gap: 32px;
     list-style: none;
-    margin: 0;
 }
 
 .nav-list a {
     color: #000;
     font-size: 15px;
     text-transform: uppercase;
-    text-decoration: none !important;
-    padding-block: 16px;
-    transition: color 0.3s;
-}
-
-a.sign-up-text {
-    color: #6798cd !important;
-}
-
-a.sign-up-text:hover {
-    color: #007bff !important;
-}
-
-.nav-list a:hover {
-    color: #0D82FE;
 }
 
 .dropdown {
@@ -197,17 +177,9 @@ a.sign-up-text:hover {
     z-index: 10;
 }
 
-.dropdown-content a {
-    color: black;
-    padding: 8px 15px;
-    display: block;
-    font-size: 14px;
-}
-
 .dropdown:hover .dropdown-content {
     display: block;
 }
-
 
 .sub-dropdown {
     display: none;
@@ -216,7 +188,6 @@ a.sign-up-text:hover {
     top: 0;
     left: 100%;
     min-width: 160px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
     padding: 10px 0;
 }
 
@@ -224,131 +195,35 @@ a.sign-up-text:hover {
     display: block;
 }
 
-
-.hamburger {
-    display: none;
-    background: none;
-    border-top: 3px solid #000;
-    cursor: pointer;
-}
-
-.hamburger::after,
-.hamburger::before {
-    content: " ";
-    display: block;
-    width: 30px;
-    height: 3px;
-    background: #000;
-    margin-top: 5px;
-    transition: 0.3s;
-}
-
-.sign-in,
-.sign-up-text {
-    color: #000000;
-    font-size: 15px;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-
-.sign-up-text:hover,
-.sign-in:hover {
-    color: #0D82FE;
-}
-
-
-.nav-item.d-flex.align-items-center {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.user-box {
-    position: relative;
-}
-
-.user-info {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.user-photo {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-}
-
-.user-dropdown {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background-color: white;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
-    padding: 10px;
-    display: none;
-    z-index: 10;
-}
-
-.user-box:hover .user-dropdown {
-    display: block;
-}
-
-
 .auth-links {
     display: flex;
     align-items: center;
     gap: 8px; 
 }
 
+.sign-up-text {
+    color: #6798cd !important;
+}
+.sign-up-text:hover {
+    color: #007bff !important;
+}
+
+.nav-list a:hover {
+    color: #0D82FE;
+}
+
+.user-box:hover .user-dropdown {
+    display: block;
+}
 
 @media (max-width: 844px) {
-    .hamburger {
-        display: block;
+    .navbar-collapse {
+        transition: height 0.3s ease;
     }
-
     .nav-list {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        clip-path: circle(100px at 90% -15%);
-        transition: 1s ease-out;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
         background: rgba(255, 255, 255, 0.9);
         backdrop-filter: blur(10px);
-        gap: 20px;
-        pointer-events: none;
-    }
-
-    .nav-list a {
-        font-size: 24px;
-        opacity: 0;
-    }
-
-    .nav.active .nav-list {
-        clip-path: circle(1500px at 90% -15%);
-        pointer-events: all;
-    }
-
-    .nav.active .hamburger {
-        position: fixed;
-        top: 26px;
-        right: 16px;
-        border-top-color: transparent;
-    }
-
-    .nav.active .hamburger::before {
-        transform: rotate(135deg);
-    }
-
-    .nav.active .hamburger::after {
-        transform: rotate(-135deg);
-        top: -7px;
     }
 }
 </style>
