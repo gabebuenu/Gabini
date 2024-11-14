@@ -3,7 +3,6 @@
     <div class="item-card">
       <div class="item-desc">
         <div class="item-icon">
-          <!-- Concertado -->
           <img src="../../assets/img/Icons.svg" alt="">
         </div>
         <div class="item-info">
@@ -64,20 +63,25 @@
     }
   }
   
-  .item-card .item-bg {
+/* Ajuste na imagem de fundo para cobrir a área do cartão completamente */
+.item-card .item-bg {
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    transition: 400ms;
+    object-fit: cover; /* Garante que a imagem cubra o contêiner */
+    transition: transform 400ms, filter 400ms;
     filter: opacity(0.8);
   }
-  
-  .item-card .item-bg:hover {
-    transform: scale(1.2);
+
+/* Ajuste no efeito de hover para escalonar a imagem */
+.item-card:hover .item-bg {
+    transform: scale(1.1); /* Escala levemente */
     filter: opacity(0.5);
   }
-  
-  .item-desc {
+
+.item-desc {
     padding-left: 16px;
     width: 260px;
     margin: 32px;
@@ -90,8 +94,8 @@
     backdrop-filter: blur(30px);
     -webkit-backdrop-filter: blur(30px);
   }
-  
-  .item-icon {
+
+.item-icon {
     width: 60px;
     height: 60px;
     display: flex;
@@ -101,8 +105,8 @@
     border-radius: 50%;
     border: 1px solid #616161;
   }
-  
-  .item-info {
+
+.item-info {
     display: flex;
     flex-direction: column;
     line-height: 0.5;
@@ -118,7 +122,7 @@
     }
   }
   
-  @media (max-width: 768px) {
+@media (max-width: 768px) {
     .container {
       flex-direction: column;
       align-items: center;
@@ -126,10 +130,11 @@
   
     .item-card {
       width: 100%;
-      max-width: 400px;
+      max-width: 600px;
       height: auto;
-      margin: 8px 0;
+      margin: 10px 0;
     }
   }
+
   </style>
   
