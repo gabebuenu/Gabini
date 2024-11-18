@@ -147,6 +147,7 @@ export default {
     border: none;
     outline: none;
 }
+
 .navbar-toggler-icon {
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba%280, 0, 0, 0.7%29' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
@@ -162,6 +163,82 @@ export default {
     color: #000;
     font-size: 15px;
     text-transform: uppercase;
+    text-decoration: none;
+}
+/* Estilo para a área do usuário */
+.user-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.user-photo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ccc;
+}
+
+.user-name {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+}
+
+/* Dropdown da box */
+.user-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #fff;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    z-index: 10;
+    width: 180px;
+    padding: 8px 0;
+    font-size: 14px;
+}
+
+/* Exibe o dropdown ao passar o mouse */
+.user-box:hover .user-dropdown {
+    display: block;
+}
+
+/* Estilo dos botões dentro do dropdown */
+.user-dropdown button {
+    display: block;
+    width: 100%;
+    padding: 8px 16px;
+    text-align: left;
+    background: none;
+    border: none;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+}
+
+.user-dropdown button:hover {
+    background: #f7f7f7;
+    color: #007bff;
+}
+
+/* Bordas e separação */
+.user-dropdown button:not(:last-child) {
+    border-bottom: 1px solid #eee;
+}
+
+.nav-list a:hover {
+    color: #0D82FE;
 }
 
 .dropdown {
@@ -196,6 +273,13 @@ export default {
     display: block;
 }
 
+.user-photo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
 .auth-links {
     display: flex;
     align-items: center;
@@ -204,31 +288,27 @@ export default {
 
 .sign-up-text {
     color: #6798cd !important;
+    text-decoration: none;
 }
+
 .sign-up-text:hover {
     color: #007bff !important;
 }
 
-.nav-list a:hover {
-    color: #0D82FE;
-}
-
-.user-box:hover .user-dropdown {
-    display: block;
-}
-
 .navbar-collapse {
-  transition: height 0.3s ease;
+    transition: height 0.3s ease;
 }
 
+/* Responsividade */
 @media (max-width: 844px) {
-    .navbar-collapse {
-        transition: height 0.3s ease;
-    }
     .nav-list {
         flex-direction: column;
+        gap: 16px;
         background: rgba(255, 255, 255, 0.9);
         backdrop-filter: blur(10px);
+        padding: 16px;
+        list-style: none;
     }
 }
 </style>
+
