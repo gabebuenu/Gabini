@@ -1,14 +1,41 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
+import { createApp } from 'vue';
+import App from './App.vue';
+import router from './router';
 
 // Importar o CSS do Bootstrap
-import 'bootstrap/dist/css/bootstrap.min.css'
-// Importar o JavaScript do Bootstrap
-import 'bootstrap/dist/js/bootstrap.bundle.min.js'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
-const app = createApp(App)
+// Font Awesome
+import '@fortawesome/fontawesome-free/css/all.css';
+import '@fortawesome/fontawesome-free/js/all.js';
 
-app.use(router)
+// Vuetify
+import 'vuetify/styles';
+import { createVuetify } from 'vuetify';
+import * as components from 'vuetify/components';
+import * as directives from 'vuetify/directives';
 
-app.mount('#app')
+// Configurar Font Awesome no Vuetify
+import { aliases, fa } from 'vuetify/iconsets/fa';
+import { mdi } from 'vuetify/iconsets/mdi';
+
+const vuetify = createVuetify({
+  components,
+  directives,
+  icons: {
+    defaultSet: 'fa', // Define Font Awesome como padrão
+    aliases,
+    sets: {
+      fa,   // Font Awesome
+      mdi,  // Material Design Icons
+    },
+  },
+});
+
+const app = createApp(App);
+
+app.use(router);
+app.use(vuetify);
+
+app.mount('#app');
