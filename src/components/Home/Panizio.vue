@@ -80,7 +80,7 @@
     width: 88%;
     max-width: 1200px;
     margin: 30px auto; 
-    flex-wrap: wrap; /* Permite que os elementos se ajustem em telas menores */
+    flex-wrap: wrap; 
 }
 
 .text-section {
@@ -88,7 +88,6 @@
     flex: 1;
 }
 
-/* Ajuste de fontes e espaçamento para títulos e parágrafos */
 .offer-container h1 {
     font-size: 3.8em;
     color: #ffffff;
@@ -102,7 +101,6 @@
     font-weight: bold;
 }
 
-/* Countdown responsivo */
 .countdown {
     font-size: 6em;
     color: #ffffff;
@@ -171,7 +169,6 @@
     margin-left: 30px;
 }
 
-/* Estilos responsivos para dispositivos móveis */
 @media (max-width: 768px) {
     .offer-container {
         padding: 20px;

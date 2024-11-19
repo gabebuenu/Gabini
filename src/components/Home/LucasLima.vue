@@ -83,7 +83,6 @@ mounted() {
       updateCarousel();
     }
   }); 
-  // testando
 
   updateCarousel();
 }
