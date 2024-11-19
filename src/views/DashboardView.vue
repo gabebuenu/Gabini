@@ -93,7 +93,7 @@
       <v-dialog v-model="dialog.open" max-width="500px">
         <v-card>
           <v-card-title>
-            {{ dialog.type === 'product' ? 'Criar Produto' : 'Criar Marca' }}
+            {{ dialog.type === 'product' ? 'Criar/Editar Produto' : 'Criar Marca' }}
           </v-card-title>
           <v-card-text>
             <v-form ref="form">
@@ -123,7 +123,6 @@
                 v-model="formData.imagemArquivo"
                 label="Imagem do Produto"
                 accept="image/*"
-                required
               />
               <v-file-input
                 v-if="dialog.type === 'product'"
@@ -197,7 +196,7 @@ export default {
       snackbar: {
         visible: false,
         message: "",
-        color: "success", // "success" para sucesso, "error" para erro
+        color: "success",
       },
     };
   },
@@ -227,41 +226,67 @@ export default {
         imagemHoverArquivo: null,
       };
     },
-    async saveProduct() {
-      try {
-        const formData = new FormData();
-        formData.append("Id", this.formData.id || 0);
-        formData.append("Nome", this.formData.nome);
-        formData.append("Preco", this.formData.preco);
-        formData.append("MarcaId", this.formData.marcaId);
-        formData.append("Imagem", "string");
-        formData.append("ImagemHover", "string");
-
-        if (this.formData.imagemArquivo) {
-          formData.append("imagemArquivo", this.formData.imagemArquivo);
-        }
-        if (this.formData.imagemHoverArquivo) {
-          formData.append("imagemHoverArquivo", this.formData.imagemHoverArquivo);
-        }
-
-        await axios.post("https://localhost:7250/api/product", formData);
-
-        this.fetchProducts();
-        this.showSnackbar("Produto criado com sucesso!", "success");
-        this.closeDialog();
-      } catch (error) {
-        console.error("Erro ao salvar produto:", error);
-        this.showSnackbar("Erro ao criar produto. Tente novamente.", "error");
-      }
+    openUpdateDialog(product) {
+      this.dialog = { open: true, type: "product" };
+      this.formData = {
+        id: product.id,
+        nome: product.nome,
+        preco: product.preco,
+        marcaId: product.marcaId,
+        imagemArquivo: null,
+        imagemHoverArquivo: null,
+      };
     },
-    async saveBrand() {
+    async saveProduct() {
+  const formData = new FormData();
+
+  formData.append("Id", this.formData.id); // Sempre enviar o ID
+  if (this.formData.nome) formData.append("Nome", this.formData.nome);
+  if (this.formData.preco !== null) formData.append("Preco", this.formData.preco);
+  if (this.formData.marcaId !== null) formData.append("MarcaId", this.formData.marcaId);
+  if (this.formData.imagemArquivo)
+    formData.append("imagem", this.formData.imagemArquivo);
+  if (this.formData.imagemHoverArquivo)
+    formData.append("imagemHover", this.formData.imagemHoverArquivo);
+
+  console.log("Dados enviados:", [...formData.entries()]);
+
+  try {
+    const response = await axios.put(
+      `https://localhost:7250/api/product/${this.formData.id}`,
+      formData,
+      { headers: { "Content-Type": "multipart/form-data" } }
+    );
+    console.log("Resposta do backend:", response.data);
+    this.showSnackbar("Produto salvo com sucesso!", "success");
+
+    // Atualiza a lista de produtos
+    await this.fetchProducts();
+
+    // Fecha o diálogo após salvar
+    this.closeDialog();
+  } catch (error) {
+    const backendErrors = error.response?.data.errors;
+    console.error("Erros detalhados:", backendErrors || error.response?.data || error);
+
+    let errorMessage = error.response?.data?.title || "Erro ao salvar produto.";
+    if (backendErrors) {
+      errorMessage += "\n" + Object.entries(backendErrors)
+        .map(([key, value]) => `${key}: ${Array.isArray(value) ? value.join(", ") : value}`)
+        .join("\n");
+    }
+
+    this.showSnackbar(errorMessage, "error");
+  }
+},
+    async deleteProduct(id) {
       try {
-        await axios.post("https://localhost:7250/api/brand", { nome: this.formData.nome });
-        this.showSnackbar("Marca criada com sucesso!", "success");
-        this.closeDialog();
+        await axios.delete(`https://localhost:7250/api/product/${id}`);
+        this.fetchProducts();
+        this.showSnackbar("Produto deletado com sucesso!", "success");
       } catch (error) {
-        console.error("Erro ao salvar marca:", error);
-        this.showSnackbar("Erro ao criar marca. Tente novamente.", "error");
+        console.error("Erro ao deletar produto:", error);
+        this.showSnackbar("Erro ao deletar produto. Tente novamente.", "error");
       }
     },
     closeDialog() {
@@ -281,6 +306,8 @@ export default {
   },
 };
 </script>
+
+
 
 
 
