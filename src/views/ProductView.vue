@@ -2,18 +2,18 @@
   <!-- Navbar Bruno -->
   <Bruno class="bruno-navbar" />
 
-  <!-- Product Container -->
-  <div ref="productContainer" class="product-container">
+  <!-- Verifica se o produto foi carregado -->
+  <div v-if="product" ref="productContainer" class="product-container">
     <div class="product-image-section">
       <!-- Botão de seta esquerda -->
       <button class="arrow-button left-arrow" @click="previousImage">‹</button>
-      
+
       <!-- Imagem principal do produto -->
       <img :src="currentImage" alt="Produto" class="main-image" />
-      
+
       <!-- Botão de seta direita -->
       <button class="arrow-button right-arrow" @click="nextImage">›</button>
-      
+
       <!-- Imagem de pré-visualização menor -->
       <img :src="previewImage" alt="Pré-visualização" class="preview-image" @click="swapImages" />
     </div>
@@ -33,53 +33,92 @@
     </div>
   </div>
 
+  <!-- Placeholder para indicar que o produto está sendo carregado -->
+  <div v-else class="loading-container">
+    <p>Carregando produto...</p>
+  </div>
+
   <!-- Footer Bruno -->
   <FooterBruno />
 </template>
 
-
 <script>
 import Bruno from '@/components/Home/Bruno.vue';
 import FooterBruno from '@/components/Home/FooterBruno.vue';
-import mainImage1 from '@/assets/img/1.svg';
-import previewImage1 from '@/assets/img/2.svg';
+import axios from 'axios';
 
 export default {
   components: {
     Bruno,
-    FooterBruno
+    FooterBruno,
   },
-  props: ['id'],
   data() {
-    const products = [
-      {
-        mainImages: [mainImage1, previewImage1],
-        name: 'Gabini® K-29 Premium Headset',
-        description: 'Headset with Multi-Device Connectivity and Noise-Canceling Technology, Black.',
-        price: 'R$ 199,99'
-      },
-      {
-        mainImages: [mainImage1, previewImage1],
-        name: 'Gabini® K-30 Premium Headset',
-        description: 'Another product description here.',
-        price: 'R$ 299,99'
-      }
-    ];
-
     return {
-      product: products[this.$route.params.id] || products[0],
-      currentImageIndex: 0,
+      product: null, // Dados do produto
+      currentImageIndex: 0, // Índice da imagem atual
     };
   },
   computed: {
     currentImage() {
-      return this.product.mainImages[this.currentImageIndex];
+      // Retorna a imagem principal
+      return this.product?.mainImages?.[this.currentImageIndex] || 'https://via.placeholder.com/150';
     },
     previewImage() {
-      return this.product.mainImages[1 - this.currentImageIndex]; 
-    }
+      // Retorna a imagem de pré-visualização
+      return this.product?.mainImages?.[1 - this.currentImageIndex] || 'https://via.placeholder.com/150';
+    },
   },
   methods: {
+    addBase64Prefix(imageData, fallback = 'https://via.placeholder.com/150') {
+      if (!imageData) {
+        console.warn('Imagem ausente. Usando fallback:', fallback);
+        return fallback;
+      }
+
+      const trimmedData = imageData.trim();
+
+      // Verifica o formato da imagem
+      if (trimmedData.startsWith('<svg') || trimmedData.startsWith('PHN2Zy')) {
+        console.log('Imagem é SVG.');
+        return `data:image/svg+xml;base64,${trimmedData}`;
+      } else if (trimmedData.startsWith('/9j/')) {
+        console.log('Imagem é JPEG.');
+        return `data:image/jpeg;base64,${trimmedData}`;
+      } else if (trimmedData.startsWith('iVBORw0KGgo')) {
+        console.log('Imagem é PNG.');
+        return `data:image/png;base64,${trimmedData}`;
+      } else {
+        console.warn('Formato desconhecido. Usando fallback:', fallback);
+        return fallback;
+      }
+    },
+
+    async fetchProductDetails() {
+      const productId = this.$route.params.id; // Captura o ID do produto da URL
+      try {
+        const response = await axios.get(`https://localhost:7250/api/Product/${productId}`);
+        const productData = response.data;
+
+        console.log('Dados do produto recebidos da API:', productData);
+
+        // Converte os dados recebidos da API para o formato esperado
+        this.product = {
+          id: productData.id,
+          mainImages: [
+            this.addBase64Prefix(productData.imagem),
+            this.addBase64Prefix(productData.imagemHover),
+          ],
+          name: productData.nome || 'Produto Sem Nome',
+          description: productData.descricao || 'Sem Descrição',
+          price: `R$ ${productData.preco?.toFixed(2) || '0.00'}`,
+        };
+
+        console.log('Produto formatado:', this.product);
+      } catch (error) {
+        console.error('Erro ao carregar os detalhes do produto:', error);
+      }
+    },
+
     addToCart() {
       console.log('Produto adicionado ao carrinho!');
     },
@@ -87,22 +126,25 @@ export default {
       this.currentImageIndex = 1 - this.currentImageIndex;
     },
     previousImage() {
-      this.currentImageIndex = (this.currentImageIndex - 1 + this.product.mainImages.length) % this.product.mainImages.length;
+      this.currentImageIndex =
+        (this.currentImageIndex - 1 + this.product.mainImages.length) % this.product.mainImages.length;
     },
     nextImage() {
       this.currentImageIndex = (this.currentImageIndex + 1) % this.product.mainImages.length;
-    }
+    },
   },
   mounted() {
-    // Usa o ref para rolar até o início da `product-container`
+    this.fetchProductDetails(); // Busca os detalhes do produto ao montar o componente
     this.$nextTick(() => {
       if (this.$refs.productContainer) {
         this.$refs.productContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     });
-  }
+  },
 };
 </script>
+
+
 
 
 <style scoped>

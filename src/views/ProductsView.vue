@@ -103,7 +103,6 @@ export default {
   methods: {
     addBase64Prefix(imageData, fallback) {
       if (!imageData) {
-        console.warn('Imagem ausente. Usando fallback:', fallback);
         return fallback;
       }
 
@@ -111,38 +110,30 @@ export default {
 
       // Verifica se é SVG
       if (trimmedData.startsWith('<svg') || trimmedData.startsWith('PHN2Zy')) {
-        console.log('Adicionando prefixo para SVG.');
         return `data:image/svg+xml;base64,${trimmedData}`;
       }
 
       // Verifica se é JPEG
       if (trimmedData.startsWith('/9j/')) {
-        console.log('Adicionando prefixo para JPEG.');
         return `data:image/jpeg;base64,${trimmedData}`;
       }
 
       // Verifica se é PNG
       if (trimmedData.startsWith('iVBORw0KGgo')) {
-        console.log('Adicionando prefixo para PNG.');
         return `data:image/png;base64,${trimmedData}`;
       }
 
       // Caso o formato seja desconhecido
-      console.warn('Formato desconhecido. Usando fallback:', fallback);
       return fallback;
     },
     async fetchProducts() {
       try {
         const response = await axios.get('https://localhost:7250/api/Product');
-        console.log('API Response:', response.data);
 
         if (response.data && Array.isArray(response.data.$values)) {
           const defaultImage = 'https://via.placeholder.com/150';
 
           this.products = response.data.$values.map((product) => {
-            console.log('Produto recebido da API:', product);
-
-            // Adicionar prefixos às imagens do produto
             const originalImage = this.addBase64Prefix(product.imagem, defaultImage);
             const hoverImage = this.addBase64Prefix(product.imagemHover, defaultImage);
 
@@ -157,31 +148,20 @@ export default {
               currentImage: originalImage,
             };
           });
-
-          console.log('Produtos carregados:', this.products);
-        } else {
-          console.error('Formato inesperado da resposta da API:', response.data);
         }
       } catch (error) {
         console.error('Erro ao buscar produtos:', error);
       }
     },
     onHover(product) {
-      console.log('Hover no produto:', product.id);
       if (product.hoverImage) {
         product.currentImage = product.hoverImage;
-        console.log('Imagem trocada para hover:', product.currentImage);
-      } else {
-        console.warn('Imagem hover ausente para o produto:', product.id);
       }
     },
     onLeave(product) {
-      console.log('Mouse saiu do produto:', product.id);
       product.currentImage = product.originalImage;
-      console.log('Imagem retornada para original:', product.currentImage);
     },
     handleImageError(event) {
-      console.error('Erro ao carregar imagem:', event.target.src);
       event.target.src = 'https://via.placeholder.com/150';
     },
   },

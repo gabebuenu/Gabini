@@ -3,8 +3,8 @@ import HomeView from '../views/HomeView.vue';
 import Cadastro from '../components/Validacoes/Cadastro.vue';
 import Login from '../components/Validacoes/Login.vue';
 import Editar from '@/components/Validacoes/EditarPerfil.vue';
-import ProductView from '../views/ProductView.vue';
-import ProductsView from '../views/ProductsView.vue'; 
+import ProductView from '../views/ProductView.vue'; // Página de detalhes do produto
+import ProductsView from '../views/ProductsView.vue'; // Página de listagem de produtos
 import DashboardView from '../views/DashboardView.vue';
 
 const router = createRouter({
@@ -13,39 +13,39 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: HomeView,
     },
     {
       path: '/cadastro',
       name: 'cadastro',
-      component: Cadastro
+      component: Cadastro,
     },
     {
       path: '/login',
       name: 'login',
-      component: Login
+      component: Login,
     },
     {
       path: '/editar-perfil',
       name: 'editar',
-      component: Editar
+      component: Editar,
     },
     {
-      path: '/product/:id',
+      path: '/product/:id', // Rota dinâmica para detalhes do produto
       name: 'product',
-      component: ProductView
+      component: ProductView,
     },
     {
-      path: '/products',
+      path: '/products', // Página de listagem de produtos
       name: 'products',
-      component: ProductsView
+      component: ProductsView,
     },
     {
       path: '/dashboard',
       name: 'dashboard',
-      component: DashboardView
-    }
-  ]
+      component: DashboardView,
+    },
+  ],
 });
 
 export default router;
