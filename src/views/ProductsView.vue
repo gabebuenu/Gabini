@@ -22,8 +22,15 @@
           v-for="product in paginatedProducts"
           :key="product.id"
           class="product-card"
+          @mouseover="onHover(product)"
+          @mouseout="onLeave(product)"
         >
-          <img :src="product.image" alt="Imagem do Produto" class="product-image" />
+          <img
+            :src="product.currentImage"
+            :alt="`Imagem do Produto ${product.name}`"
+            class="product-image"
+            @error="handleImageError"
+          />
           <h3 class="product-name">{{ product.name }}</h3>
           <p class="product-description">{{ product.description }}</p>
           <p class="product-price">{{ product.price }}</p>
@@ -59,7 +66,7 @@ import axios from 'axios';
 export default {
   components: {
     Bruno,
-    FooterBruno
+    FooterBruno,
   },
   data() {
     return {
@@ -67,15 +74,15 @@ export default {
       selectedCategory: '',
       products: [],
       productsPerPage: 10,
-      currentPage: 1
+      currentPage: 1,
     };
   },
   computed: {
     categories() {
-      return [...new Set(this.products.map(product => product.category))];
+      return [...new Set(this.products.map((product) => product.category))];
     },
     filteredProducts() {
-      return this.products.filter(product => {
+      return this.products.filter((product) => {
         const matchesSearch = product.name.toLowerCase().includes(this.searchQuery.toLowerCase());
         const matchesCategory = this.selectedCategory ? product.category === this.selectedCategory : true;
         return matchesSearch && matchesCategory;
@@ -88,46 +95,106 @@ export default {
     },
     totalPages() {
       return Math.ceil(this.filteredProducts.length / this.productsPerPage);
-    }
+    },
   },
   created() {
     this.fetchProducts();
   },
   methods: {
-    async fetchProducts() {
-  try {
-    const response = await axios.get('https://localhost:7250/api/Product');
-    console.log("API Response:", response.data);  // Verifique o formato da resposta da API
+    addBase64Prefix(imageData, fallback) {
+      if (!imageData) {
+        console.warn('Imagem ausente. Usando fallback:', fallback);
+        return fallback;
+      }
 
-    // Verifique se response.data.$values existe e é um array
-    if (response.data && Array.isArray(response.data.$values)) {
-      this.products = response.data.$values.map(product => ({
-        id: product.id,
-        name: product.nome,
-        description: 'Descrição do produto', // Ajuste conforme necessário
-        price: `R$ ${product.preco.toFixed(2)}`,
-        category: product.category || 'Categoria Padrão', // Ajuste conforme necessário
-        image: product.imagem
-      }));
-    } else if (Array.isArray(response.data)) {
-      this.products = response.data.map(product => ({
-        id: product.id,
-        name: product.nome,
-        description: 'Descrição do produto', // Ajuste conforme necessário
-        price: `R$ ${product.preco.toFixed(2)}`,
-        category: product.category || 'Categoria Padrão', // Ajuste conforme necessário
-        image: product.imagem
-      }));
-    } else {
-      console.error("Erro: `response.data` não é um array de produtos nem contém `$values`", response.data);
-    }
-  } catch (error) {
-    console.error('Erro ao buscar produtos:', error);
-  }
-    }
-  }
+      const trimmedData = imageData.trim();
+
+      // Verifica se é SVG
+      if (trimmedData.startsWith('<svg') || trimmedData.startsWith('PHN2Zy')) {
+        console.log('Adicionando prefixo para SVG.');
+        return `data:image/svg+xml;base64,${trimmedData}`;
+      }
+
+      // Verifica se é JPEG
+      if (trimmedData.startsWith('/9j/')) {
+        console.log('Adicionando prefixo para JPEG.');
+        return `data:image/jpeg;base64,${trimmedData}`;
+      }
+
+      // Verifica se é PNG
+      if (trimmedData.startsWith('iVBORw0KGgo')) {
+        console.log('Adicionando prefixo para PNG.');
+        return `data:image/png;base64,${trimmedData}`;
+      }
+
+      // Caso o formato seja desconhecido
+      console.warn('Formato desconhecido. Usando fallback:', fallback);
+      return fallback;
+    },
+    async fetchProducts() {
+      try {
+        const response = await axios.get('https://localhost:7250/api/Product');
+        console.log('API Response:', response.data);
+
+        if (response.data && Array.isArray(response.data.$values)) {
+          const defaultImage = 'https://via.placeholder.com/150';
+
+          this.products = response.data.$values.map((product) => {
+            console.log('Produto recebido da API:', product);
+
+            // Adicionar prefixos às imagens do produto
+            const originalImage = this.addBase64Prefix(product.imagem, defaultImage);
+            const hoverImage = this.addBase64Prefix(product.imagemHover, defaultImage);
+
+            return {
+              id: product.id,
+              name: product.nome || 'Produto sem nome',
+              description: product.descricao || 'Descrição não fornecida',
+              price: `R$ ${product.preco?.toFixed(2) || '0.00'}`,
+              category: product.categoria || 'Categoria Padrão',
+              originalImage: originalImage,
+              hoverImage: hoverImage,
+              currentImage: originalImage,
+            };
+          });
+
+          console.log('Produtos carregados:', this.products);
+        } else {
+          console.error('Formato inesperado da resposta da API:', response.data);
+        }
+      } catch (error) {
+        console.error('Erro ao buscar produtos:', error);
+      }
+    },
+    onHover(product) {
+      console.log('Hover no produto:', product.id);
+      if (product.hoverImage) {
+        product.currentImage = product.hoverImage;
+        console.log('Imagem trocada para hover:', product.currentImage);
+      } else {
+        console.warn('Imagem hover ausente para o produto:', product.id);
+      }
+    },
+    onLeave(product) {
+      console.log('Mouse saiu do produto:', product.id);
+      product.currentImage = product.originalImage;
+      console.log('Imagem retornada para original:', product.currentImage);
+    },
+    handleImageError(event) {
+      console.error('Erro ao carregar imagem:', event.target.src);
+      event.target.src = 'https://via.placeholder.com/150';
+    },
+  },
 };
 </script>
+
+
+
+
+
+
+
+
   
   <style scoped>
   .bruno-navbar {

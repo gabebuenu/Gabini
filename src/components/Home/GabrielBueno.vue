@@ -12,7 +12,7 @@
         @mouseout="resetImage(index)"
       >
         <img
-          :src="product.src" 
+          :src="product.currentSrc"
           alt="Headset"
           class="product-image"
         >
@@ -25,6 +25,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
 import axios from 'axios';
@@ -52,40 +53,81 @@ export default {
     async fetchProducts() {
       try {
         const response = await axios.get('https://localhost:7250/api/Product');
+        console.log('Resposta completa da API:', response.data);
 
-        // Verifique se `response.data.$values` é um array antes de usar `.map()`
         if (Array.isArray(response.data.$values)) {
-          // Filtra os produtos que têm os IDs 1, 2 ou 3
           this.products = response.data.$values
             .filter(product => [1, 2, 3].includes(product.id))
-            .map(product => ({
-              id: product.id,
-              nome: product.nome,
-              preco: product.preco,
-              src: product.imagem, // Usa o caminho da imagem retornado pela API
-            }));
+            .map(this.formatProduct);
+          console.log('Produtos formatados:', this.products);
         } else {
-          console.error("Erro: `response.data.$values` não é uma lista de produtos", response.data);
+          console.error('Erro: `response.data.$values` não é uma lista de produtos', response.data);
         }
       } catch (error) {
         console.error('Erro ao buscar produtos:', error);
       }
     },
+    formatProduct(product) {
+      console.log('Processando produto:', product);
+
+      const formattedProduct = {
+        id: product.id,
+        nome: product.nome,
+        preco: product.preco,
+        src: product.imagem
+          ? `data:image/svg+xml;base64,${product.imagem}`
+          : 'https://via.placeholder.com/150',
+        hoverSrc: product.imagemHover
+          ? `data:image/svg+xml;base64,${product.imagemHover}`
+          : null,
+        currentSrc: product.imagem
+          ? `data:image/svg+xml;base64,${product.imagem}`
+          : 'https://via.placeholder.com/150',
+      };
+
+      // Logando as imagens do produto para verificar erros
+      console.log(`Produto ID: ${product.id}, Nome: ${product.nome}`);
+      console.log('Imagem principal:', formattedProduct.src);
+      console.log('Imagem hover:', formattedProduct.hoverSrc);
+
+      return formattedProduct;
+    },
     hoverImage(index) {
-      // Alterna para uma imagem de hover se necessário
-      this.products[index].src = this.products[index].src;
+      const product = this.products[index];
+      console.log(`Hover na imagem do produto (index: ${index}, ID: ${product.id})`);
+      console.log('Imagem atual:', product.currentSrc);
+      console.log('Imagem hover:', product.hoverSrc);
+
+      if (product.hoverSrc) {
+        product.currentSrc = product.hoverSrc;
+        console.log('Imagem trocada para hover:', product.currentSrc);
+      } else {
+        console.warn(`Produto ID: ${product.id} não possui imagem hover.`);
+      }
     },
     resetImage(index) {
-      this.products[index].src = this.products[index].src;
+      const product = this.products[index];
+      console.log(`Reset hover na imagem do produto (index: ${index}, ID: ${product.id})`);
+      console.log('Imagem retornando para:', product.src);
+
+      product.currentSrc = product.src;
     },
   },
   filters: {
     currency(value) {
-      return `$${parseFloat(value).toFixed(2)}`;
-    }
-  }
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+      }).format(value);
+    },
+  },
 };
 </script>
+
+
+
+
+
 
   
 
