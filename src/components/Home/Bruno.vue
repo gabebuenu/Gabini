@@ -165,7 +165,7 @@ export default {
     text-transform: uppercase;
     text-decoration: none;
 }
-/* Estilo para a área do usuário */
+
 .user-box {
     position: relative;
     display: flex;
@@ -194,7 +194,6 @@ export default {
     color: #333;
 }
 
-/* Dropdown da box */
 .user-dropdown {
     display: none;
     position: absolute;
@@ -209,12 +208,10 @@ export default {
     font-size: 14px;
 }
 
-/* Exibe o dropdown ao passar o mouse */
 .user-box:hover .user-dropdown {
     display: block;
 }
 
-/* Estilo dos botões dentro do dropdown */
 .user-dropdown button {
     display: block;
     width: 100%;
@@ -232,7 +229,6 @@ export default {
     color: #007bff;
 }
 
-/* Bordas e separação */
 .user-dropdown button:not(:last-child) {
     border-bottom: 1px solid #eee;
 }
@@ -299,7 +295,6 @@ export default {
     transition: height 0.3s ease;
 }
 
-/* Responsividade */
 @media (max-width: 844px) {
     .nav-list {
         flex-direction: column;
@@ -311,4 +306,3 @@ export default {
     }
 }
 </style>
-
