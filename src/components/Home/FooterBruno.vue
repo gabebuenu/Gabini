@@ -193,7 +193,6 @@ export default {
   font-weight: 400;
 }
 
-/* Responsividade para telas menores */
 @media (max-width: 768px) {
   .footer-section {
     height: auto;
@@ -226,8 +225,8 @@ export default {
 
   .content-wrapper {
     flex-direction: column;
-    align-items: flex-start; /* Alinha o conteúdo à esquerda para telas pequenas */
-    padding-left: 10px; /* Adiciona espaçamento à esquerda */
+    align-items: flex-start; 
+    padding-left: 10px; 
   }
 
   .menu-column h5 {
