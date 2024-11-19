@@ -85,7 +85,6 @@ export default {
           : 'https://via.placeholder.com/150',
       };
 
-      // Logando as imagens do produto para verificar erros
       console.log(`Produto ID: ${product.id}, Nome: ${product.nome}`);
       console.log('Imagem principal:', formattedProduct.src);
       console.log('Imagem hover:', formattedProduct.hoverSrc);
@@ -123,13 +122,6 @@ export default {
   },
 };
 </script>
-
-
-
-
-
-
-  
 
 <style scoped>
 .products-section {
@@ -176,13 +168,13 @@ export default {
     width: 250px;
     text-align: center;
     overflow: hidden;
-    cursor: pointer; /* Cursor de ponteiro para indicar que é clicável */
-    transition: transform 0.3s ease; /* Transição para o efeito hover */
+    cursor: pointer; 
+    transition: transform 0.3s ease; 
 }
 
 .product-card:hover {
-    transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Sombras ao passar o mouse */
+    transform: scale(1.05); 
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); 
 }
 
 .product-card img {
@@ -271,7 +263,7 @@ export default {
     }
 
     .product-card {
-        width: 100%; /* Ajuste para mobile */
+        width: 100%; 
     }
 }
 </style>
