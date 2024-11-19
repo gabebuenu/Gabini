@@ -28,6 +28,11 @@
           <v-btn color="secondary" @click="openCreateDialog('brand')">
             Criar Marca
           </v-btn>
+          <Router-Link to="/">
+          <v-btn @click="goToHome">
+            Voltar à Tela Inicial
+          </v-btn>
+          </Router-Link>
         </div>
       </div>
 
@@ -204,6 +209,9 @@ export default {
     toggleSidebar() {
       this.sidebarOpen = !this.sidebarOpen;
     },
+    goToHome() {
+    this.$router.push("/");
+    },
     async fetchProducts() {
       this.loading = true;
       try {
@@ -240,7 +248,7 @@ export default {
     async saveProduct() {
   const formData = new FormData();
 
-  formData.append("Id", this.formData.id); // Sempre enviar o ID
+  formData.append("Id", this.formData.id); 
   if (this.formData.nome) formData.append("Nome", this.formData.nome);
   if (this.formData.preco !== null) formData.append("Preco", this.formData.preco);
   if (this.formData.marcaId !== null) formData.append("MarcaId", this.formData.marcaId);
@@ -260,10 +268,8 @@ export default {
     console.log("Resposta do backend:", response.data);
     this.showSnackbar("Produto salvo com sucesso!", "success");
 
-    // Atualiza a lista de produtos
     await this.fetchProducts();
 
-    // Fecha o diálogo após salvar
     this.closeDialog();
   } catch (error) {
     const backendErrors = error.response?.data.errors;
@@ -307,10 +313,6 @@ export default {
 };
 </script>
 
-
-
-
-
 <style scoped>
 .dashboard-container {
   display: flex;
@@ -318,7 +320,7 @@ export default {
   background: #121212;
   color: #ffffff;
 }
-/* Sidebar */
+
 .sidebar {
   width: 250px;
   background: #1e1e1e;
@@ -336,12 +338,12 @@ export default {
 .sidebar-link:hover {
   background: #333333;
 }
-/* Main Content */
+
 .content {
   flex: 1;
   padding: 20px;
 }
-/* Responsive Styles */
+
 @media (max-width: 768px) {
   .desktop-table {
     display: none;
