@@ -63,21 +63,19 @@
     }
   }
   
-/* Ajuste na imagem de fundo para cobrir a área do cartão completamente */
 .item-card .item-bg {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Garante que a imagem cubra o contêiner */
+    object-fit: cover; 
     transition: transform 400ms, filter 400ms;
     filter: opacity(0.8);
   }
 
-/* Ajuste no efeito de hover para escalonar a imagem */
 .item-card:hover .item-bg {
-    transform: scale(1.1); /* Escala levemente */
+    transform: scale(1.1);
     filter: opacity(0.5);
   }
 
@@ -137,4 +135,3 @@
   }
 
   </style>
-  
