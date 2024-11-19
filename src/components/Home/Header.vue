@@ -334,7 +334,6 @@ h1 {
   font-size: 20px;
 }
 
-/* Estilos específicos para dispositivos móveis */
 @media (max-width: 768px) {
   .hero {
     flex-direction: column;
@@ -364,14 +363,6 @@ h1 {
     justify-content: center;
     gap: 10px;
   }
-
-  /* .card-head {
-    width: 100%;
-    max-width: 90%;
-    margin: 20px 0;
-  } */
-
-
 }
 
 @media (max-width: 768px) {
