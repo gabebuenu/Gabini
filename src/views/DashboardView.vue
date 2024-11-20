@@ -50,12 +50,8 @@
       <div class="header">
         <h1>Dashboard</h1>
         <div class="actions">
-          <v-btn color="primary" @click="openCreateDialog('product')">
-            Criar Produto
-          </v-btn>
-          <v-btn color="secondary" @click="openCreateDialog('brand')">
-            Criar Marca
-          </v-btn>
+          <v-btn color="primary" @click="openCreateDialog('product')">Criar Produto</v-btn>
+          <v-btn color="secondary" @click="openCreateDialog('brand')">Criar Marca</v-btn>
           <Router-Link to="/">
             <v-btn>Voltar à Tela Inicial</v-btn>
           </Router-Link>
@@ -63,11 +59,7 @@
       </div>
 
       <v-container>
-        <v-row justify="space-between" align="center" class="mb-4">
-          <h2>Gerenciar Produtos</h2>
-        </v-row>
-
-        <!-- Tabela Desktop -->
+        <!-- Produtos - Tabela Desktop -->
         <v-data-table
           v-if="!isMobile && products.length"
           :headers="headers"
@@ -80,39 +72,16 @@
             <v-img :src="item.imagem" max-height="50" max-width="50" v-if="item.imagem" />
             <span v-else>Sem imagem</span>
           </template>
-
           <template #item.actions="{ item }">
             <v-btn color="primary" text @click="openUpdateDialog(item)">Editar</v-btn>
             <v-btn color="error" text @click="deleteProduct(item.id)">Deletar</v-btn>
           </template>
+          <template v-slot:top>
+            <tr>
+              <th class="th-center" v-for="header in headers" :key="header.text"></th>
+            </tr>
+          </template>
         </v-data-table>
-
-        <!-- Exibição Mobile -->
-        <div v-else-if="isMobile && products.length" class="mobile-table">
-          <div v-for="product in products" :key="product.id" class="product-card">
-            <div class="product-info">
-              <strong>Nome:</strong> {{ product.nome }}
-            </div>
-            <div class="product-info">
-              <strong>Preço:</strong> {{ product.preco }}
-            </div>
-            <div class="product-info">
-              <strong>Marca:</strong> {{ product.marcaId }}
-            </div>
-            <div v-if="product.imagem" class="product-info">
-              <v-img :src="product.imagem" max-height="100" max-width="100" />
-            </div>
-            <div class="product-actions">
-              <v-btn color="primary" text @click="openUpdateDialog(product)">Editar</v-btn>
-              <v-btn color="error" text @click="deleteProduct(product.id)">Deletar</v-btn>
-            </div>
-          </div>
-        </div>
-
-        <!-- Carregamento -->
-        <v-row justify="center" v-if="loading">
-          <v-progress-circular indeterminate color="primary"></v-progress-circular>
-        </v-row>
 
         <!-- Mensagem caso não haja produtos -->
         <v-row justify="center" v-if="!loading && !products.length">
@@ -124,54 +93,63 @@
       <v-dialog v-model="dialog.open" max-width="500px">
         <v-card>
           <v-card-title>
-            {{ dialog.type === 'product' ? 'Criar/Editar Produto' : 'Criar Marca' }}
+            {{ isEditing ? 'Editar Produto' : dialog.type === 'product' ? 'Criar Produto' : 'Criar Marca' }}
           </v-card-title>
           <v-card-text>
             <v-form ref="form">
-              <v-text-field
-                v-if="dialog.type === 'product'"
-                v-model="formData.nome"
-                label="Nome do Produto"
-                required
-              />
-              <v-text-field
-                v-if="dialog.type === 'product'"
-                v-model="formData.preco"
-                label="Preço"
-                type="number"
-                required
-              />
-              <v-text-field
-                v-if="dialog.type === 'product'"
-                v-model="formData.marcaId"
-                label="ID da Marca"
-                type="number"
-                required
-              />
-              <v-file-input
-                v-if="dialog.type === 'product'"
-                v-model="formData.imagemArquivo"
-                label="Imagem do Produto"
-                accept="image/*"
-              />
-              <v-file-input
-                v-if="dialog.type === 'product'"
-                v-model="formData.imagemHoverArquivo"
-                label="Imagem Hover"
-                accept="image/*"
-              />
-              <v-text-field
-                v-if="dialog.type === 'brand'"
-                v-model="formData.nome"
-                label="Nome da Marca"
-                required
-              />
-            </v-form>
+  <!-- Nome do Produto -->
+  <v-text-field
+    v-if="dialog.type === 'product'"
+    v-model="formData.nome"
+    label="Nome do Produto"
+    required
+  />
+
+  <!-- Preço -->
+  <v-text-field
+    v-if="dialog.type === 'product'"
+    v-model="formData.preco"
+    label="Preço"
+    type="number"
+    required
+  />
+
+  <!-- ID da Marca -->
+  <v-text-field
+    v-if="dialog.type === 'product'"
+    v-model="formData.marcaId"
+    label="ID da Marca"
+    type="number"
+    required
+  />
+
+  <!-- Imagem do Produto -->
+  <v-file-input
+    v-if="dialog.type === 'product'"
+    v-model="formData.imagemArquivo"
+    label="Imagem do Produto"
+    accept="image/*"
+  />
+
+  <!-- Imagem Hover -->
+  <v-file-input
+    v-if="dialog.type === 'product'"
+    v-model="formData.imagemHoverArquivo"
+    label="Imagem Hover do Produto"
+    accept="image/*"
+  />
+
+  <!-- Nome da Marca -->
+  <v-text-field
+    v-if="dialog.type === 'brand'"
+    v-model="formData.nome"
+    label="Nome da Marca"
+    required
+  />
+</v-form>
           </v-card-text>
           <v-card-actions>
-            <v-btn color="primary" @click="dialog.type === 'product' ? saveProduct() : saveBrand()">
-              Salvar
-            </v-btn>
+            <v-btn color="primary" @click="dialog.type === 'product' ? saveProduct() : saveBrand()">Salvar</v-btn>
             <v-btn color="grey" @click="closeDialog">Cancelar</v-btn>
           </v-card-actions>
         </v-card>
@@ -206,20 +184,21 @@ export default {
       menuItems: [
         { text: "Produtos", href: "#produtos", icon: "fa fa-tachometer-alt" },
         { text: "Marcas", href: "#marcas", icon: "fa fa-box" },
-        { text: "Premissões", href: "#permissao", icon: "fa fa-tag" },
+        { text: "Permissões", href: "#permissao", icon: "fa fa-tag" },
       ],
       products: [],
       headers: [
-        { text: "ID", value: "id" },
+        { text: "ID", value: "id", align: "center" },
         { text: "Nome", value: "nome" },
-        { text: "Preço", value: "preco" },
-        { text: "Marca ID", value: "marcaId" },
-        { text: "Imagem", value: "imagem" },
-        { text: "Ações", value: "actions" },
+        { text: "Preço", value: "preco", align: "right" },
+        { text: "Marca ID", value: "marcaId", align: "center" },
+        { text: "Imagem", value: "imagem", align: "center" },
+        { text: "Ações", value: "actions", align: "center" },
       ],
       loading: false,
       isMobile: window.innerWidth <= 768,
       dialog: { open: false, type: null },
+      isEditing: false, // Nova flag para diferenciar criação e edição
       formData: {
         id: null,
         nome: "",
@@ -285,6 +264,7 @@ export default {
     },
     openCreateDialog(type) {
       this.dialog = { open: true, type };
+      this.isEditing = false; // Indica que é uma nova criação
       this.formData = {
         id: null,
         nome: "",
@@ -294,41 +274,82 @@ export default {
         imagemHoverArquivo: null,
       };
     },
-    async saveProduct() {
-      try {
-        const formData = new FormData();
-        formData.append("Id", this.formData.id || 0);
-        formData.append("Nome", this.formData.nome);
-        formData.append("Preco", this.formData.preco);
-        formData.append("MarcaId", this.formData.marcaId);
-        formData.append("Imagem", "string");
-        formData.append("ImagemHover", "string");
-
-        if (this.formData.imagemArquivo) {
-          formData.append("imagemArquivo", this.formData.imagemArquivo);
-        }
-        if (this.formData.imagemHoverArquivo) {
-          formData.append("imagemHoverArquivo", this.formData.imagemHoverArquivo);
-        }
-
-        await axios.post("https://localhost:7250/api/product", formData);
-
-        this.fetchProducts();
-        this.showSnackbar("Produto criado com sucesso!", "success");
-        this.closeDialog();
-      } catch (error) {
-        console.error("Erro ao salvar produto:", error);
-        this.showSnackbar("Erro ao criar produto. Tente novamente.", "error");
-      }
+    openUpdateDialog(product) {
+      this.dialog = { open: true, type: "product" };
+      this.isEditing = true; // Indica que é uma edição
+      this.formData = {
+        id: product.id,
+        nome: product.nome,
+        preco: product.preco,
+        marcaId: product.marcaId,
+        imagemArquivo: null,
+        imagemHoverArquivo: null,
+      };
     },
+    async saveProduct() {
+  try {
+    const formData = new FormData();
+
+    // Campos obrigatórios
+    formData.append("Id", this.formData.id || 0); // Id = 0 para criação
+    formData.append("Nome", this.formData.nome || "");
+    formData.append("Preco", this.formData.preco || 0);
+    formData.append("MarcaId", this.formData.marcaId || 0);
+
+    // Strings estáticas exigidas pelo back-end
+    formData.append("Imagem", "string");
+    formData.append("ImagemHover", "string");
+
+    // Arquivos de imagem
+    if (this.formData.imagemArquivo) {
+      formData.append("imagemArquivo", this.formData.imagemArquivo);
+    }
+    if (this.formData.imagemHoverArquivo) {
+      formData.append("imagemHoverArquivo", this.formData.imagemHoverArquivo);
+    }
+
+    let response;
+
+    if (this.isEditing) {
+      // Requisição PUT para edição
+      response = await axios.put(`https://localhost:7250/api/Product/${this.formData.id}`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      this.showSnackbar("Produto atualizado com sucesso!", "success");
+    } else {
+      // Requisição POST para criação
+      response = await axios.post("https://localhost:7250/api/Product", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      this.showSnackbar("Produto criado com sucesso!", "success");
+    }
+
+    // Atualizar lista de produtos e fechar o diálogo
+    this.fetchProducts();
+    this.closeDialog();
+  } catch (error) {
+    console.error("Erro ao salvar produto:", error);
+
+    // Mensagem de erro detalhada
+    const errorMessage =
+      error.response?.data?.title || error.response?.data?.message || "Erro ao salvar produto.";
+    this.showSnackbar(errorMessage, "error");
+  }
+},
+
     async saveBrand() {
       try {
-        await axios.post("https://localhost:7250/api/brand", { nome: this.formData.nome });
+        const endpoint = `https://localhost:7250/api/brand`;
+        await axios.post(endpoint, {
+          nome: this.formData.nome,
+        });
         this.showSnackbar("Marca criada com sucesso!", "success");
         this.closeDialog();
       } catch (error) {
         console.error("Erro ao salvar marca:", error);
-        this.showSnackbar("Erro ao criar marca. Tente novamente.", "error");
+        const errorMessage =
+          error.response?.data?.title || "Erro ao salvar marca.";
+        this.showSnackbar(errorMessage, "error");
       }
     },
     async deleteProduct(id) {
@@ -364,6 +385,7 @@ export default {
 </script>
 
 
+
 <style scoped>
 /* Estilos da navbar */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap");
@@ -376,7 +398,7 @@ export default {
 }
 
 body {
-  background-color: #1d1d1d;
+  background-color: #000000;
 }
 
 .dashboard-container {
@@ -489,7 +511,7 @@ body {
   position: absolute;
   top: 30px;
   right: -10px;
-  background-color: #008cff;
+  background-color: #232323;
   color: #e3e9f7;
   border-radius: 100%;
   width: 20px;
@@ -528,5 +550,163 @@ body {
 #sidebar.open-sidebar .side-item a {
   justify-content: flex-start;
   gap: 14px;
+}
+/* Estilo atualizado para o painel principal */
+.content {
+  flex-grow: 1;
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.header h1 {
+  font-size: 24px;
+  color: #212529;
+  font-weight: bold;
+}
+
+.actions {
+  display: flex;
+  gap: 10px; /* Ajuste o valor do espaço entre os botões */
+}
+
+
+.actions v-btn {
+  margin-left: 10px;
+}
+
+.desktop-table {
+  width: 100%;
+  background-color: #222222;
+  color: #FFF;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+}
+
+.desktop-table .v-data-table__wrapper {
+  max-height: none;
+}
+
+.desktop-table .v-data-table__header {
+  background-color: #f1f3f5;
+  font-weight: bold;
+}
+.desktop-table .v-data-table__content td {
+  color: #ffffff; /* Cor branca para as células da tabela */
+  font-size: 14px;
+  text-align: center;
+}
+.desktop-table .v-data-table__header {
+  background-color: #343a40; /* Cor escura para o fundo do cabeçalho */
+}
+.desktop-table .v-data-table__header th {
+  color: #ffffff; /* Cor do texto */
+  font-size: 14px;
+  text-align: center; /* Alinha o texto ao centro */
+}
+
+.desktop-table .v-data-table__header th {
+  color: #ffffff; /* Cor branca para o texto */
+  font-size: 14px;
+}
+.v-data-table__header th {
+  color: #ffffff !important; /* Força a cor branca no texto */
+  font-size: 14px;          /* Garante tamanho do texto */
+  text-align: center;       /* Alinha o texto centralizado */
+}
+
+.desktop-table .v-data-table__header th {
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.desktop-table .v-data-table__content tr {
+  border-bottom: 1px solid #e9ecef;
+}
+
+.desktop-table .v-data-table__content td {
+  color: #495057;
+  font-size: 14px;
+  text-align: center;
+}
+
+.desktop-table .v-data-table__actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.mobile-table .product-card {
+  background-color: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.mobile-table .product-info {
+  font-size: 14px;
+  color: #495057;
+  margin-bottom: 10px;
+}
+
+.mobile-table .product-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.v-btn {
+  font-size: 14px;
+  font-weight: bold;
+  color: #000000;
+  text-transform: none;
+  border-radius: 4px;
+}
+
+.v-btn.primary {
+  background-color: #007bff;
+}
+
+.v-btn.primary:hover {
+  background-color: #0056b3;
+}
+
+.v-btn.error {
+  background-color: #dc3545;
+}
+
+.v-btn.error:hover {
+  background-color: #b02a37;
+}
+
+.v-snackbar {
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.v-dialog .v-card {
+  border-radius: 8px;
+}
+
+.v-dialog .v-card-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #212529;
+}
+
+.v-dialog .v-text-field {
+  margin-bottom: 15px;
+}
+
+.v-progress-circular {
+  margin: 20px auto;
 }
 </style>
