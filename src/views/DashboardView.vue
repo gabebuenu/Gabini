@@ -3,11 +3,18 @@
     <!-- Sidebar -->
     <nav id="sidebar" :class="{ 'open-sidebar': sidebarOpen }">
       <div id="sidebar_content">
-        <div id="user">
-          <img v-if="isAuthenticated" :src="userProfile.foto" id="user_avatar" alt="Avatar" />
+        <div id="user" v-if="isAuthenticated">
+          <img :src="userProfile.foto" id="user_avatar" alt="Avatar do Usuário" />
           <p id="user_infos">
-            <span class="item-description" v-if="isAuthenticated">{{ userProfile.username }}</span>
-            <span class="item-description" v-else>Bem-vindo!</span>
+            <span class="item-description">{{ userProfile.username }}</span>
+            <span class="item-description">Bem-vindo!</span>
+          </p>
+        </div>
+        <div v-else id="user">
+          <p id="user_infos">
+            <RouterLink class="nav-link sign-in" to="/login">Entrar</RouterLink>
+            <span class="separator">|</span>
+            <RouterLink class="sign-up-text" to="/cadastro">Cadastrar</RouterLink>
           </p>
         </div>
 
@@ -43,19 +50,14 @@
       <div class="header">
         <h1>Dashboard</h1>
         <div class="actions">
-          <v-btn color="primary" @click="openCreateDialog('product')">Criar Produto</v-btn>
-          <v-btn color="secondary" @click="openCreateDialog('brand')">Criar Marca</v-btn>
-          <Router-Link to="/">
-          <v-btn @click="goToHome">
-            Voltar à Tela Inicial
+          <v-btn color="primary" @click="openCreateDialog('product')">
+            Criar Produto
           </v-btn>
-<<<<<<< HEAD
-=======
-          <Router-Link to="/">
-          <v-btn @click="goToHome">
-            Voltar à Tela Inicial
+          <v-btn color="secondary" @click="openCreateDialog('brand')">
+            Criar Marca
           </v-btn>
->>>>>>> c92fbd9b2a1774b2c2f2e92a6bd45c2ab0649759
+          <Router-Link to="/">
+            <v-btn>Voltar à Tela Inicial</v-btn>
           </Router-Link>
         </div>
       </div>
@@ -188,6 +190,7 @@
   </div>
 </template>
 
+
 <script>
 import axios from "axios";
 
@@ -201,9 +204,9 @@ export default {
         foto: "",
       },
       menuItems: [
-        { text: "Produtos", href: "#dashboard", icon: "fa fa-tachometer-alt" },
+        { text: "Produtos", href: "#produtos", icon: "fa fa-tachometer-alt" },
         { text: "Marcas", href: "#marcas", icon: "fa fa-box" },
-        { text: "Permissões", href: "#permissao", icon: "fa fa-tag" },
+        { text: "Premissões", href: "#permissao", icon: "fa fa-tag" },
       ],
       products: [],
       headers: [
@@ -236,10 +239,9 @@ export default {
     toggleSidebar() {
       this.sidebarOpen = !this.sidebarOpen;
     },
-<<<<<<< HEAD
     navigateTo(href) {
       this.menuItems.forEach((item) => (item.active = item.href === href));
-      this.$router.push(href);
+      this.$router.push(href); // Navegação com Vue Router
     },
     async fetchUserProfile() {
       const token = localStorage.getItem("authToken");
@@ -250,6 +252,7 @@ export default {
           const response = await axios.get(`https://localhost:7250/api/SignUp/${userId}`, {
             headers: { Authorization: `Bearer ${token}` },
           });
+
           this.userProfile = {
             username: response.data.username,
             foto: `data:image/png;base64,${response.data.foto}`,
@@ -268,10 +271,6 @@ export default {
       localStorage.removeItem("userId");
       this.isAuthenticated = false;
       this.$router.push("/login");
-=======
-    goToHome() {
-    this.$router.push("/");
->>>>>>> c92fbd9b2a1774b2c2f2e92a6bd45c2ab0649759
     },
     async fetchProducts() {
       this.loading = true;
@@ -308,6 +307,7 @@ export default {
     },
     async saveProduct() {
       const formData = new FormData();
+
       formData.append("Id", this.formData.id);
       if (this.formData.nome) formData.append("Nome", this.formData.nome);
       if (this.formData.preco !== null) formData.append("Preco", this.formData.preco);
@@ -317,7 +317,6 @@ export default {
       if (this.formData.imagemHoverArquivo)
         formData.append("imagemHover", this.formData.imagemHoverArquivo);
 
-<<<<<<< HEAD
       try {
         const response = await axios.put(
           `https://localhost:7250/api/product/${this.formData.id}`,
@@ -328,61 +327,19 @@ export default {
         await this.fetchProducts();
         this.closeDialog();
       } catch (error) {
-        const backendErrors = error.response?.data.errors;
-        let errorMessage = error.response?.data?.title || "Erro ao salvar produto.";
-        if (backendErrors) {
-          errorMessage += "\n" + Object.entries(backendErrors)
-            .map(([key, value]) => `${key}: ${Array.isArray(value) ? value.join(", ") : value}`)
-            .join("\n");
-        }
+        console.error("Erro ao salvar produto:", error);
+        const errorMessage =
+          error.response?.data?.title || "Erro ao salvar produto.";
         this.showSnackbar(errorMessage, "error");
       }
     },
-=======
-  formData.append("Id", this.formData.id); 
-  if (this.formData.nome) formData.append("Nome", this.formData.nome);
-  if (this.formData.preco !== null) formData.append("Preco", this.formData.preco);
-  if (this.formData.marcaId !== null) formData.append("MarcaId", this.formData.marcaId);
-  if (this.formData.imagemArquivo)
-    formData.append("imagem", this.formData.imagemArquivo);
-  if (this.formData.imagemHoverArquivo)
-    formData.append("imagemHover", this.formData.imagemHoverArquivo);
-
-  console.log("Dados enviados:", [...formData.entries()]);
-
-  try {
-    const response = await axios.put(
-      `https://localhost:7250/api/product/${this.formData.id}`,
-      formData,
-      { headers: { "Content-Type": "multipart/form-data" } }
-    );
-    console.log("Resposta do backend:", response.data);
-    this.showSnackbar("Produto salvo com sucesso!", "success");
-
-    await this.fetchProducts();
-
-    this.closeDialog();
-  } catch (error) {
-    const backendErrors = error.response?.data.errors;
-    console.error("Erros detalhados:", backendErrors || error.response?.data || error);
-
-    let errorMessage = error.response?.data?.title || "Erro ao salvar produto.";
-    if (backendErrors) {
-      errorMessage += "\n" + Object.entries(backendErrors)
-        .map(([key, value]) => `${key}: ${Array.isArray(value) ? value.join(", ") : value}`)
-        .join("\n");
-    }
-
-    this.showSnackbar(errorMessage, "error");
-  }
-},
->>>>>>> c92fbd9b2a1774b2c2f2e92a6bd45c2ab0649759
     async deleteProduct(id) {
       try {
         await axios.delete(`https://localhost:7250/api/product/${id}`);
         this.fetchProducts();
         this.showSnackbar("Produto deletado com sucesso!", "success");
       } catch (error) {
+        console.error("Erro ao deletar produto:", error);
         this.showSnackbar("Erro ao deletar produto. Tente novamente.", "error");
       }
     },
@@ -400,6 +357,7 @@ export default {
     window.addEventListener("resize", () => {
       this.isMobile = window.innerWidth <= 768;
     });
+
     if (localStorage.getItem("authToken") && localStorage.getItem("userId")) {
       this.fetchUserProfile();
     }
@@ -407,11 +365,7 @@ export default {
 };
 </script>
 
-<<<<<<< HEAD
 
-
-=======
->>>>>>> c92fbd9b2a1774b2c2f2e92a6bd45c2ab0649759
 <style scoped>
 /* Estilos da navbar */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap");
@@ -424,7 +378,7 @@ export default {
 }
 
 body {
-  background-color: #e3e9f7;
+  background-color: #1d1d1d;
 }
 
 .dashboard-container {
@@ -435,24 +389,18 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: #2b2b2b;
+  background-color: #0f0f0f;
   height: 100vh;
   border-radius: 0px 18px 18px 0px;
   position: relative;
   transition: all 0.5s;
   min-width: 82px;
   z-index: 2;
+  color: #ffffff;
 }
 
-<<<<<<< HEAD
 #sidebar_content {
   padding: 12px;
-=======
-.sidebar {
-  width: 250px;
-  background: #1e1e1e;
-  transition: width 0.3s ease;
->>>>>>> c92fbd9b2a1774b2c2f2e92a6bd45c2ab0649759
 }
 
 #user {
@@ -475,7 +423,7 @@ body {
 }
 
 #user_infos span:last-child {
-  color: #6b6b6b;
+  color: #ffffff;
   font-size: 12px;
 }
 
@@ -498,7 +446,7 @@ body {
 
 .side-item:hover:not(.active),
 #logout_btn:hover {
-  background-color: #e3e9f7;
+  background-color: #646464;
 }
 
 .side-item a {
@@ -513,7 +461,6 @@ body {
   color: #e3e9f7;
 }
 
-<<<<<<< HEAD
 .side-item a i {
   display: flex;
   align-items: center;
@@ -537,7 +484,6 @@ body {
   border-radius: 8px;
   text-align: start;
   cursor: pointer;
-  color: #ffffff;
   background-color: transparent;
 }
 
@@ -545,7 +491,7 @@ body {
   position: absolute;
   top: 30px;
   right: -10px;
-  background-color: #0044ff;
+  background-color: #008cff;
   color: #e3e9f7;
   border-radius: 100%;
   width: 20px;
@@ -569,7 +515,6 @@ body {
   text-overflow: ellipsis;
   font-size: 14px;
   transition: width 0.6s;
-  color: #ffffff;
   height: 0px;
 }
 
@@ -586,19 +531,4 @@ body {
   justify-content: flex-start;
   gap: 14px;
 }
-=======
-.content {
-  flex: 1;
-  padding: 20px;
-}
-
-@media (max-width: 768px) {
-  .desktop-table {
-    display: none;
-  }
-  .mobile-table {
-    display: block;
-  }
-}
->>>>>>> c92fbd9b2a1774b2c2f2e92a6bd45c2ab0649759
 </style>
