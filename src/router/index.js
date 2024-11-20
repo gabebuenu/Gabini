@@ -6,6 +6,7 @@ import Editar from '@/components/Validacoes/EditarPerfil.vue';
 import ProductView from '../views/ProductView.vue'; // Página de detalhes do produto
 import ProductsView from '../views/ProductsView.vue'; // Página de listagem de produtos
 import DashboardView from '../views/DashboardView.vue';
+// import BrandsTable from "../views/BrandsTable.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -45,6 +46,11 @@ const router = createRouter({
       name: 'dashboard',
       component: DashboardView,
     },
+    // {
+    //   path: "/brands",
+    //   name: "Brands",
+    //   component: BrandsTable,
+    // },
   ],
 });
 

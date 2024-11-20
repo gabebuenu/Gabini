@@ -9,7 +9,8 @@
         <ul class="navbar-nav mx-auto nav-list">
           <li class="nav-item"><Router-Link class="nav-link active" to="/">HOME</Router-Link></li>
           <Router-Link to="/products" class="nav-link">Produtos</Router-Link>
-          <Router-Link to="/dashboard" class="nav-link">Dashboard</Router-Link>
+          <!-- Mostrar Dashboard somente para o usuário permitido -->
+          <Router-Link v-if="canViewDashboard" to="/dashboard" class="nav-link">Dashboard</Router-Link>
           <li class="nav-item"><a class="nav-link" href="#">SALE</a></li>
           <li class="nav-item"><a class="nav-link" href="#">BUNDLE & SAVE</a></li>
           <li class="nav-item dropdown">
@@ -59,6 +60,7 @@ export default {
   data() {
     return {
       isAuthenticated: false,
+      canViewDashboard: false, // Controla a visibilidade do Dashboard
       showDropdown: false,
       userProfile: {
         username: '',
@@ -91,7 +93,12 @@ export default {
             username: response.data.username,
             foto: `data:image/png;base64,${response.data.foto}`
           };
+
           this.isAuthenticated = true;
+
+          // Verifica se o usuário tem permissão para ver o Dashboard
+          this.checkDashboardAccess(userId);
+
         } catch (error) {
           this.isAuthenticated = false;
         }
@@ -100,10 +107,16 @@ export default {
       }
     },
 
+    checkDashboardAccess(userId) {
+      const allowedUsers = ['2', '3'];
+      this.canViewDashboard = allowedUsers.includes(userId);
+    },
+
     logout() {
       localStorage.removeItem('authToken');
       localStorage.removeItem('userId');
       this.isAuthenticated = false;
+      this.canViewDashboard = false;
       this.$router.push('/login'); 
     },
 
@@ -127,6 +140,8 @@ export default {
   }
 };
 </script>
+
+
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&display=swap');

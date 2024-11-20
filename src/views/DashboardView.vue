@@ -182,9 +182,10 @@ export default {
         foto: "",
       },
       menuItems: [
-        { text: "Produtos", href: "#produtos", icon: "fa fa-tachometer-alt" },
-        { text: "Marcas", href: "#marcas", icon: "fa fa-box" },
-        { text: "Permissões", href: "#permissao", icon: "fa fa-tag" },
+        { text: "Produtos", href: "/dashboard", icon: "fa fa-tachometer-alt" },
+        { text: "Home", href: "/", icon: "fa fa-box" },
+        // { text: "Marcas", href: "/brands", icon: "fa fa-box" },
+        // { text: "Permissões", href: "#permissao", icon: "fa fa-tag" },
       ],
       products: [],
       headers: [
@@ -220,7 +221,7 @@ export default {
     },
     navigateTo(href) {
       this.menuItems.forEach((item) => (item.active = item.href === href));
-      this.$router.push(href); // Navegação com Vue Router
+      this.$router.push(href);
     },
     async fetchUserProfile() {
       const token = localStorage.getItem("authToken");
