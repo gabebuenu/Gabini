@@ -294,43 +294,41 @@ export default {
         imagemHoverArquivo: null,
       };
     },
-    openUpdateDialog(product) {
-      this.dialog = { open: true, type: "product" };
-      this.formData = {
-        id: product.id,
-        nome: product.nome,
-        preco: product.preco,
-        marcaId: product.marcaId,
-        imagemArquivo: null,
-        imagemHoverArquivo: null,
-      };
-    },
     async saveProduct() {
-      const formData = new FormData();
-
-      formData.append("Id", this.formData.id);
-      if (this.formData.nome) formData.append("Nome", this.formData.nome);
-      if (this.formData.preco !== null) formData.append("Preco", this.formData.preco);
-      if (this.formData.marcaId !== null) formData.append("MarcaId", this.formData.marcaId);
-      if (this.formData.imagemArquivo)
-        formData.append("imagem", this.formData.imagemArquivo);
-      if (this.formData.imagemHoverArquivo)
-        formData.append("imagemHover", this.formData.imagemHoverArquivo);
-
       try {
-        const response = await axios.put(
-          `https://localhost:7250/api/product/${this.formData.id}`,
-          formData,
-          { headers: { "Content-Type": "multipart/form-data" } }
-        );
-        this.showSnackbar("Produto salvo com sucesso!", "success");
-        await this.fetchProducts();
+        const formData = new FormData();
+        formData.append("Id", this.formData.id || 0);
+        formData.append("Nome", this.formData.nome);
+        formData.append("Preco", this.formData.preco);
+        formData.append("MarcaId", this.formData.marcaId);
+        formData.append("Imagem", "string");
+        formData.append("ImagemHover", "string");
+
+        if (this.formData.imagemArquivo) {
+          formData.append("imagemArquivo", this.formData.imagemArquivo);
+        }
+        if (this.formData.imagemHoverArquivo) {
+          formData.append("imagemHoverArquivo", this.formData.imagemHoverArquivo);
+        }
+
+        await axios.post("https://localhost:7250/api/product", formData);
+
+        this.fetchProducts();
+        this.showSnackbar("Produto criado com sucesso!", "success");
         this.closeDialog();
       } catch (error) {
         console.error("Erro ao salvar produto:", error);
-        const errorMessage =
-          error.response?.data?.title || "Erro ao salvar produto.";
-        this.showSnackbar(errorMessage, "error");
+        this.showSnackbar("Erro ao criar produto. Tente novamente.", "error");
+      }
+    },
+    async saveBrand() {
+      try {
+        await axios.post("https://localhost:7250/api/brand", { nome: this.formData.nome });
+        this.showSnackbar("Marca criada com sucesso!", "success");
+        this.closeDialog();
+      } catch (error) {
+        console.error("Erro ao salvar marca:", error);
+        this.showSnackbar("Erro ao criar marca. Tente novamente.", "error");
       }
     },
     async deleteProduct(id) {
