@@ -3,10 +3,9 @@ import HomeView from '../views/HomeView.vue';
 import Cadastro from '../components/Validacoes/Cadastro.vue';
 import Login from '../components/Validacoes/Login.vue';
 import Editar from '@/components/Validacoes/EditarPerfil.vue';
-import ProductView from '../views/ProductView.vue'; // Página de detalhes do produto
-import ProductsView from '../views/ProductsView.vue'; // Página de listagem de produtos
+import ProductView from '../views/ProductView.vue'; 
+import ProductsView from '../views/ProductsView.vue'; 
 import DashboardView from '../views/DashboardView.vue';
-// import BrandsTable from "../views/BrandsTable.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,12 +31,12 @@ const router = createRouter({
       component: Editar,
     },
     {
-      path: '/product/:id', // Rota dinâmica para detalhes do produto
+      path: '/product/:id',
       name: 'product',
       component: ProductView,
     },
     {
-      path: '/products', // Página de listagem de produtos
+      path: '/products',
       name: 'products',
       component: ProductsView,
     },
@@ -45,13 +44,32 @@ const router = createRouter({
       path: '/dashboard',
       name: 'dashboard',
       component: DashboardView,
+      meta: { requiresAuth: true }, // Define que esta rota requer autenticação
     },
-    // {
-    //   path: "/brands",
-    //   name: "Brands",
-    //   component: BrandsTable,
-    // },
   ],
+});
+
+// Guard de Rota
+router.beforeEach(async (to, from, next) => {
+  const requiresAuth = to.meta.requiresAuth;
+  const token = localStorage.getItem('authToken');
+  const userId = localStorage.getItem('userId');
+
+  if (requiresAuth) {
+    if (token && userId) {
+      // Verifica se o usuário tem permissão para acessar o Dashboard
+      const allowedUsers = ['2', '3'];
+      if (allowedUsers.includes(userId)) {
+        next(); // Permite o acesso
+      } else {
+        next('/'); // Redireciona para a home
+      }
+    } else {
+      next('/login'); // Redireciona para login se não autenticado
+    }
+  } else {
+    next(); // Continua para as rotas públicas
+  }
 });
 
 export default router;
