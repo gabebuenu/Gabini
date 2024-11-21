@@ -14,7 +14,10 @@
           <input type="password" id="password" v-model="password" required />
           <span v-if="errorMessage && fieldWithError === 'password'" class="error-message">{{ errorMessage }}</span>
           
-          <button type="submit">Entrar</button>
+          <button type="submit" :disabled="isLoading">
+            <span v-if="!isLoading">Entrar</span>
+            <span v-else class="spinner"></span>
+          </button>
         </form>
 
         <RouterLink to="/cadastro" class="register-link">Cadastrar</RouterLink>
@@ -36,15 +39,17 @@ export default {
       showLogo: true,
       errorMessage: '',
       fieldWithError: '',
-      loginError: false
+      loginError: false,
+      isLoading: false, // Novo estado de carregamento
     };
   },
   methods: {
     async submitLogin() {
+      this.isLoading = true; // Inicia o estado de carregamento
       try {
         const response = await axios.post('https://localhost:7250/api/SignUp/login', {
           email: this.email,
-          senha: this.password
+          senha: this.password,
         });
 
         const { token, user } = response.data;
@@ -64,6 +69,8 @@ export default {
         this.errorMessage = 'Email ou senha incorretos.';
         this.fieldWithError = error.response?.data?.field || 'email';
         this.triggerShake();
+      } finally {
+        this.isLoading = false; // Finaliza o estado de carregamento
       }
     },
     triggerShake() {
@@ -214,5 +221,25 @@ button:hover {
   .login-form {
     padding: 1.5rem;
   }
+}
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+button:disabled {
+  background-color: #666;
+  cursor: not-allowed;
 }
 </style>
