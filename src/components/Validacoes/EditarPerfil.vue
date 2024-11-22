@@ -1,4 +1,5 @@
 <template>
+  <Bruno class="bruno-navbar" />
   <div class="edit-profile">
     <h1>Editar Perfil</h1>
     <form @submit.prevent="updateProfile" class="form-container">
@@ -64,8 +65,12 @@
 
 <script>
 import axios from 'axios';
+import Bruno from '@/components/Home/Bruno.vue';
 
 export default {
+  components: {
+    Bruno,
+  },
   data() {
     return {
       formData: {
@@ -157,6 +162,15 @@ export default {
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&display=swap');
+.bruno-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Certifique-se de que está acima dos outros elementos */
+    background-color: white; /* Defina a cor de fundo para que seja visível */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Opcional: adicione uma sombra para destacar */
+  }
 .edit-profile {
   font-family: "Poppins", sans-serif;
   width: 90%;
